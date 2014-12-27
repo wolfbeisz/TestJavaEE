@@ -21,7 +21,7 @@ public class AddDocument {
 
     public String add() throws IOException{
         documentService.createDocument(documentInformation);
-        return "hello.xhtml";
+        return "createDocument.xhtml";
     }
 
 

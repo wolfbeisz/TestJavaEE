@@ -7,8 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
 
-    <h:outputLabel value="#{exampleEJB.getGreeting()}"/>
-    <h:dataTable value="#{userService.findAllUsers()}" var="user">
+    <h:dataTable value="#{userEjb.findAllUsers()}" var="user">
         <h:column>
             <f:facet name="header">Userid</f:facet>
             #{user.id}
