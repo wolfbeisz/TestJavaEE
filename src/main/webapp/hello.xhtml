@@ -6,6 +6,26 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <h:outputLabel value="#{exampleBackingBean.getGreeting()}"/>
+
+    <h:outputLabel value="#{exampleEJB.getGreeting()}"/>
+    <h:dataTable value="#{userService.findAllUsers()}" var="user">
+        <h:column>
+            <f:facet name="header">Userid</f:facet>
+            #{user.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{user.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">E-Mail</f:facet>
+            #{user.email}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Password</f:facet>
+            #{user.password}
+        </h:column>
+
+    </h:dataTable>
 </f:view>
 </html>

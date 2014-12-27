@@ -16,5 +16,26 @@
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <!--
+                <dependency>
+                    <groupId>org.primefaces</groupId>
+                    <artifactId>primefaces</artifactId>
+                    <version>5.1</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.primefaces.themes</groupId>
+                    <artifactId>afterdark</artifactId>
+                    <version>1.0.9</version>
+                </dependency>-->
     </dependencies>
 </project>

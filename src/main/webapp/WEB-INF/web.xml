@@ -10,7 +10,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.jsf</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
@@ -20,4 +20,26 @@
         <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
     </context-param>
+
+    <!--
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>afterdark</param-value>
+    </context-param>
+    -->
+
+    <data-source>
+        <name>java:app/jdbc/main</name>
+        <class-name>oracle.jdbc.OracleDriver</class-name>
+        <url>jdbc:oracle:thin:@localhost:1521:XE</url>
+        <user>docmgr</user>
+        <password>docmgr</password>
+    </data-source>
+    <!-- @DataSourceDefinition(
+    className = "oracle.jdbc.OracleDriver",
+    name = "java:global/jdbc/main",
+    user = "docmgr",
+    password = "docmgr",
+    url = "jdbc:oracle:thin:@localhost:1521:XE"
+)-->
 </web-app>
