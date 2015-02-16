@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:metadata>
+    <f:viewParam name="id" value="#{documentController.viewDocumentRequest.id}" />
+    <f:viewAction action="#{documentController.loadDocumentBeforeView}" />
+</f:metadata>
+<h:head>
+
+</h:head>
+<h:body>
+    <h1>View Document</h1>
+
+
+    <!-- add buttons for the various actions here -->
+    <h:commandButton value="checkout" action="#{documentController.checkout}"/>
+    <h:commandButton value="checkin" action="#{documentController.checkin}"/>
+    <h:commandButton value="upload revision" action="#{documentController.checkout}"/>
+    <h:commandButton value="show revisions" action="#{documentController.checkout}"/>
+    <h:commandButton value="start discussion" action="#{documentController.checkout}"/>
+    <h:commandButton value="show discussions" action="#{documentController.checkout}"/>
+
+
+    <!--<h:commandButton value="download latest" action=""></h:commandButton>-->
+
+    <h:panelGrid columns="2">
+        <h:outputLabel value="title"/>
+        <h:outputLabel value="#{documentController.document.title}"/>
+
+        <h:outputLabel value="tags"/>
+        <h:dataTable value="#{documentController.document.tags}" var="tag">
+            <h:column>
+                <f:facet name="header">
+                    tag name
+                </f:facet>
+                #{tag.text}
+            </h:column>
+
+        </h:dataTable>
+
+        <h:outputLabel value="created at:"/>
+        <h:outputLabel value="#{documentController.document.createdStamp}"/>
+
+        <h:outputLabel value="created by: "/>
+        <h:outputLabel value="#{documentController.document.createdBy.name}"/>
+    </h:panelGrid>
+
+</h:body>
+</html>

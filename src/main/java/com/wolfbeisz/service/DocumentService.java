@@ -2,6 +2,7 @@ package com.wolfbeisz.service;
 
 import com.wolfbeisz.model.database.Document;
 import com.wolfbeisz.model.database.Revision;
+import com.wolfbeisz.model.web.ViewDocumentRequest;
 import com.wolfbeisz.qualifiers.Example;
 import com.wolfbeisz.model.web.AddDocumentRequest;
 
@@ -16,7 +17,7 @@ import com.wolfbeisz.model.database.User;
 /**
  * Created by Philipp on 16.12.2014.
  */
-@Transactional
+
 public class DocumentService {
     @Inject
     private EntityManager entityManager;
@@ -24,7 +25,7 @@ public class DocumentService {
     @Inject @Example
     private User exampleUser;
 
-
+    @Transactional
     public void createDocument(AddDocumentRequest request) throws IOException {
         Document d = new Document();
         Revision r = new Revision();
@@ -45,5 +46,8 @@ public class DocumentService {
         entityManager.persist(r);
     }
 
-
+    @Transactional(Transactional.TxType.SUPPORTS)
+    public Document findDocument(long id) {
+        return entityManager.find(Document.class, id);
+    }
 }
