@@ -7,11 +7,9 @@ import com.wolfbeisz.service.DocumentService;
 import com.wolfbeisz.model.web.AddDocumentRequest;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
-import java.io.Serializable;
 
 
 /**
@@ -36,7 +34,7 @@ public class DocumentController {
     }
 
     public void loadDocumentBeforeView(){
-       document = documentService.findDocument(viewDocumentRequest.getId());
+       document = documentService.findDocument(viewDocumentRequest.getDocumentid());
     }
 
     public void loadDocumentBeforeUpdate() {

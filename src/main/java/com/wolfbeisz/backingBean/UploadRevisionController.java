@@ -11,7 +11,7 @@ import javax.inject.Named;
 @Named
 @RequestScoped
 public class UploadRevisionController {
-    private AddRevisionRequest addRevisionRequest;
+    private AddRevisionRequest addRevisionRequest = new AddRevisionRequest();
 
     public void doAddRevision() {}
 

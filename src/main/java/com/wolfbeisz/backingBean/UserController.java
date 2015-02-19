@@ -16,7 +16,7 @@ import javax.inject.Named;
 public class UserController {
     @Inject @Example
     private User user;
-    private ViewUserRequest viewRequest;
+    private ViewUserRequest viewRequest = new ViewUserRequest();
 
     public void follow() {}
     public void unfollow() {}

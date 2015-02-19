@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <f:metadata>
-    <f:viewParam name="discussionid" />
+    <f:viewParam name="discussionid" value="#{discussionController.viewDiscussionRequest.discussionId}"/>
     <f:viewAction action="#{discussionController.loadDiscussion}" />
 </f:metadata>
 

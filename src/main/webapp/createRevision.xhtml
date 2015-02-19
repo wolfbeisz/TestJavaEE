@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:metadata>
-    <f:viewParam name="documentid" value="#{revisionUploadController.addRevisionRequest.documentid}"/>
+    <f:viewParam name="documentid" value="#{uploadRevisionController.addRevisionRequest.documentid}"/>
 </f:metadata>
 <h:head>
 
@@ -17,10 +17,10 @@
 
         <h:panelGrid columns="2">
             <h:outputLabel>file</h:outputLabel>
-            <h:inputFile value="#{revisionUploadController.addRevisionRequest.file}"></h:inputFile>
+            <h:inputFile value="#{uploadRevisionController.addRevisionRequest.file}"></h:inputFile>
         </h:panelGrid>
 
-        <h:commandButton action="#{revisionUploadController.doAddRevision}" value="upload revision"></h:commandButton>
+        <h:commandButton action="#{uploadRevisionController.doAddRevision}" value="upload revision"></h:commandButton>
     </h:form>
 </h:body>
 </html>

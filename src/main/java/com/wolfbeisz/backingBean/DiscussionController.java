@@ -1,5 +1,7 @@
 package com.wolfbeisz.backingBean;
 
+import com.wolfbeisz.model.web.ViewDiscussionRequest;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -9,5 +11,14 @@ import javax.inject.Named;
 @Named
 @RequestScoped
 public class DiscussionController {
+    private ViewDiscussionRequest viewDiscussionRequest = new ViewDiscussionRequest();
     public void loadDiscussion() {}
+
+    public ViewDiscussionRequest getViewDiscussionRequest() {
+        return viewDiscussionRequest;
+    }
+
+    public void setViewDiscussionRequest(ViewDiscussionRequest viewDiscussionRequest) {
+        this.viewDiscussionRequest = viewDiscussionRequest;
+    }
 }

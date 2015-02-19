@@ -1,6 +1,7 @@
 package com.wolfbeisz.backingBean;
 
 import com.wolfbeisz.model.database.Discussion;
+import com.wolfbeisz.model.web.ListDiscussionsRequest;
 import com.wolfbeisz.qualifiers.Example;
 
 import javax.enterprise.context.RequestScoped;
@@ -17,6 +18,9 @@ public class DiscussionsController {
     @Inject @Example
     private Collection<Discussion> discussions;
 
+    private ListDiscussionsRequest listDiscussionsRequest = new ListDiscussionsRequest();
+
+    public void loadDiscussions() {}
 
     public Collection<Discussion> getDiscussions() {
         return discussions;
@@ -24,5 +28,13 @@ public class DiscussionsController {
 
     public void setDiscussions(Collection<Discussion> discussions) {
         this.discussions = discussions;
+    }
+
+    public ListDiscussionsRequest getListDiscussionsRequest() {
+        return listDiscussionsRequest;
+    }
+
+    public void setListDiscussionsRequest(ListDiscussionsRequest listDiscussionsRequest) {
+        this.listDiscussionsRequest = listDiscussionsRequest;
     }
 }

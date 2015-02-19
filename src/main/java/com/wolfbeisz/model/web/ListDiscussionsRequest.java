@@ -1,9 +1,9 @@
 package com.wolfbeisz.model.web;
 
 /**
- * Created by Philipp on 16.02.2015.
+ * Created by Philipp on 19.02.2015.
  */
-public class ViewDocumentRequest {
+public class ListDiscussionsRequest {
     private long documentid;
 
     public long getDocumentid() {

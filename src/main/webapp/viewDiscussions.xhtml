@@ -5,8 +5,10 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<!--TODO: view param for document id -->
+
 <f:metadata>
+    <f:viewParam name="documentid" value="#{discussionsController.listDiscussionsRequest.documentid}"/>
+    <f:viewAction action="#{discussionsController.loadDiscussions}" />
 </f:metadata>
 
 <h:head></h:head>
@@ -14,7 +16,7 @@
     <h1>Discussions</h1>
     <h:dataTable value="#{discussionsController.discussions}" var="discussion">
         <h:column>
-            #{discussion.id}
+            #{discussion.documentid}
         </h:column>
         <h:column>
             first comment here
