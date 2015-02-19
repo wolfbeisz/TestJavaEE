@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<f:metadata>
+    <f:viewAction action="#{dashboardController.loadActivities}" />
+</f:metadata>
+
+<h:head>
+
+
+</h:head>
+<h:body>
+    <h1>Dashboard</h1>
+
+    <h:dataTable value="#{dashboardController.activities}" var="curActivity" >
+        <h:column>
+            <f:facet name="header">
+                id
+            </f:facet>
+            #{curActivity.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                created by
+            </f:facet>
+            #{curActivity.createdBy}
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                timestamp
+            </f:facet>
+            #{curActivity.createdStamp}
+        </h:column>
+    </h:dataTable>
+    <!--
+    <c:forEach items="#{dashboardController.activities}" var="activity">
+        <div>
+            #{activity}
+        </div>
+    </c:forEach>
+    -->
+    <h:commandButton value="back" action="#{dashboardController.back}" />
+    <h:commandButton value="next" action="#{dashboardController.next}" />
+</h:body>
+</html>

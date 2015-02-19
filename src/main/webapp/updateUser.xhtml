@@ -5,30 +5,33 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<!--TODO: view params-->
+<!-- TODO:
+- load the logged in (currently) user's entity
+- introduce a 'UserUpdateRequest'
+-->
 <h:head></h:head>
 <h:body>
-    <h1>#{userController.user.name}</h1>
+    <h:outputLabel value="name" />
+    <h:inputText value="#{userController.user.name}"/>
 
-    <h:commandButton value="follow" action="#{userController.follow}"/>
-    <h:commandButton value="unfollow" action="#{userController.unfollow}"/>
+    <!--TODO: change the profile picture -->
 
     <h2>Contact</h2>
     <h:panelGrid columns="2">
         <h:outputLabel value="E-Mail"/>
-        <h:outputLabel value="#{userController.user.email}"/>
+        <h:inputText value="#{userController.user.email}"/>
 
         <h:outputLabel value="Phone"/>
-        <h:outputLabel value="#{userController.user.phone}"/>
-
+        <h:inputText value="#{userController.user.phone}"/>
 
         <h:outputLabel value="Location"/>
-        <h:outputLabel value="#{userController.user.location}"/>
+        <h:inputText value="#{userController.user.location}"/>
     </h:panelGrid>
 
     <h2>About me</h2>
-    <h:inputTextarea disabled="true" value="#{userController.user.description}"/>
+    <h:inputTextarea value="#{userController.user.description}"/>
 
+
+    <h:commandButton value="save" action="#{userController.update}"/>
 </h:body>
-
 </html>
