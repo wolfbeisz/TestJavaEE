@@ -71,4 +71,18 @@ public class ExampleDataProducer {
     public Collection<Document> allDocuments() {
         return documentDAO.findAllDocuments();
     }
+
+    @Produces @Example
+    public Collection<Discussion> buildDiscussions() {
+        List<Discussion> discussions = new ArrayList<Discussion>();
+        Discussion first = new Discussion();
+        first.setId(1);
+        discussions.add(first);
+
+        Discussion second = new Discussion();
+        second.setId(1);
+
+        discussions.add(second);
+        return discussions;
+    }
 }
