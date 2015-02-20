@@ -3,7 +3,9 @@ package com.wolfbeisz.backingBean;
 import com.wolfbeisz.model.database.Revision;
 import com.wolfbeisz.model.web.ViewRevisionsRequest;
 import com.wolfbeisz.qualifiers.Example;
+import com.wolfbeisz.service.RevisionService;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,16 +16,20 @@ import java.util.Collection;
  * Created by Philipp on 17.02.2015.
  */
 @Named
-@ViewScoped
-public class RevisionController implements Serializable {
-    @Inject @Example
+@RequestScoped
+public class RevisionController {
+
     private Collection<Revision> revisions;
     private ViewRevisionsRequest viewRequest = new ViewRevisionsRequest();
+    @Inject
+    private RevisionService revisionService;
 
     public void next(){}
     public void back(){}
 
-    public void doViewRequest() {}
+    public void loadRevisions() {
+        revisions = revisionService.findRevisions(viewRequest);
+    }
 
     public Collection<Revision> getRevisions() {
         return revisions;

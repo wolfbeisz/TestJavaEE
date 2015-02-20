@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import com.wolfbeisz.model.database.User;
+import com.wolfbeisz.repository.DocumentDAO;
 
 /**
  * Created by Philipp on 16.12.2014.
@@ -24,6 +25,9 @@ public class DocumentService {
 
     @Inject @Example
     private User exampleUser;
+
+    @Inject
+    private DocumentDAO documentDAO;
 
     @Transactional
     public void createDocument(AddDocumentRequest request) throws IOException {
@@ -48,6 +52,15 @@ public class DocumentService {
 
     @Transactional(Transactional.TxType.SUPPORTS)
     public Document findDocument(long id) {
-        return entityManager.find(Document.class, id);
+        Document document = documentDAO.findDocumentById(id);
+        if (document != null) {
+            return document;
+        }
+        throw new IllegalArgumentException();
+    }
+
+    @Transactional(Transactional.TxType.SUPPORTS)
+    public Document findDocument(ViewDocumentRequest request) {
+        return findDocument(request.getDocumentid());
     }
 }

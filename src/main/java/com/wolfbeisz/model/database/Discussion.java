@@ -11,7 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="DISCUSSIONS")
-@NamedQuery(name="Discussion.findAll", query="SELECT d FROM Discussion d")
+@NamedQueries({
+    @NamedQuery(name="Discussion.findAll", query="SELECT d FROM Discussion d"),
+    @NamedQuery(name="Discussion.findByDocumentId", query = "SELECT d from Discussion d where d.document.id = :documentId")
+})
 public class Discussion extends Activity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

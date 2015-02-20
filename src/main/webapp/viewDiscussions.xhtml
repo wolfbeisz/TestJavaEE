@@ -16,10 +16,20 @@
     <h1>Discussions</h1>
     <h:dataTable value="#{discussionsController.discussions}" var="discussion">
         <h:column>
-            #{discussion.documentid}
+            <f:facet name="header">started by</f:facet>
+            #{discussion.createdBy.name}
         </h:column>
         <h:column>
-            first comment here
+            <f:facet name="header">date and time</f:facet>
+            #{discussion.createdStamp}
+        </h:column>
+        <h:column>
+            <f:facet name="header">title</f:facet>
+            TODO: no such attribute
+        </h:column>
+        <h:column>
+            <f:facet name="header">first post in discussion</f:facet>
+            #{discussion.comments.get(0).text}
         </h:column>
     </h:dataTable>
 </h:body>

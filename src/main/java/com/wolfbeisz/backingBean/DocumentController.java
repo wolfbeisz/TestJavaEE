@@ -1,6 +1,7 @@
 package com.wolfbeisz.backingBean;
 
 import com.wolfbeisz.model.database.Document;
+import com.wolfbeisz.model.database.Tag;
 import com.wolfbeisz.model.web.UpdateDocumentRequest;
 import com.wolfbeisz.model.web.ViewDocumentRequest;
 import com.wolfbeisz.service.DocumentService;
@@ -34,11 +35,20 @@ public class DocumentController {
     }
 
     public void loadDocumentBeforeView(){
-       document = documentService.findDocument(viewDocumentRequest.getDocumentid());
+       document = documentService.findDocument(viewDocumentRequest);
     }
 
     public void loadDocumentBeforeUpdate() {
         document = documentService.findDocument(updateDocumentRequest.getId());
+
+        //implicit:
+        //updateDocumentRequest.setId(document.getId());
+        StringBuilder tags = new StringBuilder();
+        for (Tag tag : document.getTags()) {
+            tags.append(tag.getText());
+            tags.append(", ");
+        }
+        updateDocumentRequest.setTags(tags.toString());
         updateDocumentRequest.setTitle(document.getTitle());
     }
 

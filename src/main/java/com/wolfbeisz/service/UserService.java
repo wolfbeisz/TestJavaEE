@@ -1,6 +1,8 @@
 package com.wolfbeisz.service;
 
 import com.wolfbeisz.model.database.User;
+import com.wolfbeisz.model.web.ViewUserRequest;
+import com.wolfbeisz.repository.UserDao;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -17,9 +19,19 @@ import java.util.Collection;
 public class UserService {
     @Inject
     private EntityManager em_;
+    @Inject
+    private UserDao userDao;
 
     public Collection<User> findAllUsers() {
         TypedQuery<User> query = em_.createNamedQuery("User.findAll", User.class);
         return query.getResultList();
+    }
+
+    public User findUser(ViewUserRequest request) {
+        User user = userDao.findUser(request.getId());
+        if (user == null) {
+            throw new IllegalArgumentException();
+        }
+        return  user;
     }
 }

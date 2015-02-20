@@ -3,6 +3,7 @@ package com.wolfbeisz.backingBean;
 import com.wolfbeisz.model.database.Discussion;
 import com.wolfbeisz.model.web.ListDiscussionsRequest;
 import com.wolfbeisz.qualifiers.Example;
+import com.wolfbeisz.service.DiscussionService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -17,10 +18,14 @@ import java.util.Collection;
 public class DiscussionsController {
     @Inject @Example
     private Collection<Discussion> discussions;
+    @Inject
+    private DiscussionService discussionService;
 
     private ListDiscussionsRequest listDiscussionsRequest = new ListDiscussionsRequest();
 
-    public void loadDiscussions() {}
+    public void loadDiscussions() {
+        discussions = discussionService.findDiscussions(listDiscussionsRequest);
+    }
 
     public Collection<Discussion> getDiscussions() {
         return discussions;

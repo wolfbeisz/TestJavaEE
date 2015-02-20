@@ -19,15 +19,27 @@
     <h:commandButton value="previous discussion" />
     <h:commandButton value="next discussion" />
 
-    <!-- TODO: print the comments -->
-    <!--
-    <h:dataTable value="#{}" var="comment" >
-        <h:column>
-            <f:facet name="header"></f:facet>
-        </h:column>
-    </h:dataTable>-->
 
-    <!-- add the ajax action -->
+    <h:dataTable value="#{discussionController.discussion.comments}" var="comment" >
+        <h:column>
+            <f:facet name="header">id</f:facet>
+            #{comment.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">user name</f:facet>
+            #{comment.createdBy.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">date and time</f:facet>
+            #{comment.createdStamp}
+        </h:column>
+        <h:column>
+            <f:facet name="header">text</f:facet>
+            #{comment.text}
+        </h:column>
+    </h:dataTable>
+
+    <!-- TODO: add the ajax action, form missing -->
     <h:outputText value="Your comment:"/>
     <h:inputTextarea />
     <h:commandButton value="post"/>
