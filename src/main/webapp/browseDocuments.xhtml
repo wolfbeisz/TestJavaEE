@@ -21,8 +21,10 @@ go to viewDocument
 </h:head>
 <h:body>
     <h1>Browse Documents</h1>
-    <h:inputText value="#{searchController.term}"></h:inputText>
-    <h:commandButton value="search" action="#{searchController.search}" />
+    <h:form>
+        <h:inputText value="#{searchController.documentSearchEvent.term}"></h:inputText>
+        <h:commandButton value="search" action="#{searchController.search}" />
+    </h:form>
 
     <c:if test="#{!(empty searchController.results)}">
         <h:dataTable value="#{searchController.results}" var="document">

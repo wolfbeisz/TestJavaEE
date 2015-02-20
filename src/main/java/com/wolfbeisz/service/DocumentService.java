@@ -2,6 +2,7 @@ package com.wolfbeisz.service;
 
 import com.wolfbeisz.model.database.Document;
 import com.wolfbeisz.model.database.Revision;
+import com.wolfbeisz.model.web.DocumentSearchEvent;
 import com.wolfbeisz.model.web.ViewDocumentRequest;
 import com.wolfbeisz.qualifiers.Example;
 import com.wolfbeisz.model.web.AddDocumentRequest;
@@ -12,6 +13,9 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.wolfbeisz.model.database.User;
 import com.wolfbeisz.repository.DocumentDAO;
 
@@ -62,5 +66,13 @@ public class DocumentService {
     @Transactional(Transactional.TxType.SUPPORTS)
     public Document findDocument(ViewDocumentRequest request) {
         return findDocument(request.getDocumentid());
+    }
+
+    public List<Document> findAllDocuments() {
+        return documentDAO.findAllDocuments();
+    }
+
+    public List<Document> findDocuments(DocumentSearchEvent documentSearchEvent) {
+        return documentDAO.findDocumentByTitle(documentSearchEvent.getTerm());
     }
 }

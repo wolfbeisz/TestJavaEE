@@ -1,14 +1,18 @@
 package com.wolfbeisz.backingBean;
 
 import com.wolfbeisz.model.database.Document;
+import com.wolfbeisz.model.web.DocumentSearchEvent;
 import com.wolfbeisz.qualifiers.Example;
+import com.wolfbeisz.service.DocumentService;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -18,32 +22,44 @@ import java.util.Collection;
  * the page
  */
 @Named
-@RequestScoped
-public class SearchController {
-    @Inject @Example
-    private Collection<Document> results;
-    private String term;
+@ViewScoped
+public class SearchController implements Serializable{
+    private List<Document> results;
+    private DocumentSearchEvent documentSearchEvent = new DocumentSearchEvent();
+
+    //TODO: if an instance of this class is serialized and later deserialized, this property will be null
+    @Inject
+    private transient DocumentService documentService;
+
+    @PostConstruct
+    public void retrieveAllDocuments()
+    {
+        results = documentService.findAllDocuments();
+    }
 
     public void backward() {
 
     }
 
     public void forward() {}
-    public void search() {}
+    public void search() {
+        results = documentService.findDocuments(documentSearchEvent);
+    }
 
-    public Collection<Document> getResults() {
+    public List<Document> getResults() {
         return results;
     }
 
-    public void setResults(Collection<Document> results) {
+    public void List(List<Document> results) {
         this.results = results;
     }
 
-    public String getTerm() {
-        return term;
+
+    public DocumentSearchEvent getDocumentSearchEvent() {
+        return documentSearchEvent;
     }
 
-    public void setTerm(String term) {
-        this.term = term;
+    public void setDocumentSearchEvent(DocumentSearchEvent documentSearchEvent) {
+        this.documentSearchEvent = documentSearchEvent;
     }
 }
