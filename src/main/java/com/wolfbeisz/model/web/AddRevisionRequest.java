@@ -10,6 +10,7 @@ public class AddRevisionRequest {
     @NotNull
     private Part file;
 
+    @NotNull
     private Long documentid;
 
     public Part getFile() {

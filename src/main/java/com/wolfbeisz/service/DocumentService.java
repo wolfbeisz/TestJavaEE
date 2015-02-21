@@ -62,6 +62,7 @@ public class DocumentService {
             tagDao.create(t);
         }
 
+        // use ModelUtil.createRevision
         Revision r = new Revision();
         r.setCreatedStamp(new Timestamp((new java.util.Date()).getTime()));
         r.setCreatedBy(exampleUser);

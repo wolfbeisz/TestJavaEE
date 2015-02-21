@@ -4,8 +4,10 @@ import com.wolfbeisz.model.database.Revision;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -26,5 +28,15 @@ public class RevisionDao {
     @Transactional
     public void create(Revision revision) {
         em.persist(revision);
+    }
+
+    public BigDecimal findLatestRevisionNo(long documentId) {
+        Query query = em.createQuery("SELECT max(r.version) FROM Revision r WHERE r.document.id = " + documentId);
+        Object result = query.getSingleResult();
+        return (BigDecimal) result;
+        /*TypedQuery<Long> namedQuery = em.createNamedQuery("SELECT max(r.version) FROM Revision r WHERE r.document.id = :documentid", Long.class);
+        namedQuery.setParameter("documentid", documentId);
+        return namedQuery.getSingleResult();*/
+
     }
 }
