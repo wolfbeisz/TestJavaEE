@@ -1,5 +1,6 @@
 package com.wolfbeisz.service;
 
+import com.wolfbeisz.event.user.SearchUsersEvent;
 import com.wolfbeisz.model.database.User;
 import com.wolfbeisz.model.web.ViewUserRequest;
 import com.wolfbeisz.repository.UserDao;
@@ -11,20 +12,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Philipp on 11.11.2014.
  */
-@Transactional
 public class UserService {
-    @Inject
-    private EntityManager em_;
     @Inject
     private UserDao userDao;
 
-    public Collection<User> findAllUsers() {
-        TypedQuery<User> query = em_.createNamedQuery("User.findAll", User.class);
-        return query.getResultList();
+    public List<User> findAllUsers() {
+        return userDao.findAllUsers();
     }
 
     public User findUser(ViewUserRequest request) {
@@ -33,5 +31,14 @@ public class UserService {
             throw new IllegalArgumentException();
         }
         return  user;
+    }
+
+    public List<User> findUsers(SearchUsersEvent search) {
+        String term = search.getTerm();
+        if (term == null) {
+            //TODO: should we do that
+            term = "";
+        }
+        return userDao.findUsersByName(search.getTerm());
     }
 }

@@ -13,7 +13,8 @@ import java.util.List;
 @Table(name="USERS")
 @NamedQueries(value={
         @NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
-        @NamedQuery(name="User.findByEmail", query="select u from User u where u.email = :email")
+        @NamedQuery(name="User.findByEmail", query="select u from User u where u.email = :email"),
+        @NamedQuery(name="User.findByName", query = "SELECT u FROM User u WHERE u.name = :name")
 })
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
