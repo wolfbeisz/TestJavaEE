@@ -15,7 +15,6 @@ import javax.inject.Named;
 @RequestScoped
 @Named
 public class UserController {
-    @Inject @Example
     private User user;
     private ViewUserRequest viewRequest = new ViewUserRequest();
     @Inject
