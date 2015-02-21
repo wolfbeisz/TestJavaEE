@@ -23,25 +23,18 @@ public class DocumentController {
     private ViewDocumentRequest viewDocumentRequest = new ViewDocumentRequest();
     private UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest();
 
-
     @Inject
     private DocumentService documentService;
 
     private Document document;
 
-    //TODO: this is a hack: actually a redirect to viewDocument.xhtml?documentid=#{created.getId()} would be right
     public String add() throws IOException{
-        return "viewDocument.xhtml?documentid=1?faces-redirect=true";
-        /*Document created = documentService.createDocument(documentInformation);
-        document = created;
-        return "viewDocument.xhtml";*/
+        Document created = documentService.createDocument(documentInformation);
+        return "viewDocument.xhtml?documentid="+created.getId()+"&faces-redirect=true";
     }
 
-    //TODO: this is a hack: there should be no condition
     public void loadDocumentBeforeView(){
-       if (document == null) {
            document = documentService.findDocument(viewDocumentRequest);
-       }
     }
 
     public void loadDocumentBeforeUpdate() {
