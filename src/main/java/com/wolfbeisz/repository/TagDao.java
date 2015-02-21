@@ -17,4 +17,6 @@ public class TagDao {
     public void create(Tag tag) {
         em.persist(tag);
     }
+    @Transactional
+    public void delete(Tag tag) { em.remove(tag); }
 }

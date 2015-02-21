@@ -4,6 +4,7 @@ import com.wolfbeisz.model.database.Document;
 import com.wolfbeisz.model.database.Revision;
 import com.wolfbeisz.model.database.Tag;
 import com.wolfbeisz.model.web.DocumentSearchEvent;
+import com.wolfbeisz.model.web.UpdateDocumentRequest;
 import com.wolfbeisz.model.web.ViewDocumentRequest;
 import com.wolfbeisz.qualifiers.Example;
 import com.wolfbeisz.model.web.AddDocumentRequest;
@@ -53,14 +54,7 @@ public class DocumentService {
         if (tags == null) {
             tags = "";
         }
-        for (String tag : tagService.parseTags(tags)) {
-            Tag t = new Tag();
-            t.setDocument(d);
-            t.setText(tag);
-            t.setCreatedBy(exampleUser);
-            t.setCreatedStamp(new Timestamp((new java.util.Date()).getTime()));
-            tagDao.create(t);
-        }
+        createTags(d, tags);
 
         // use ModelUtil.createRevision
         Revision r = new Revision();
@@ -75,6 +69,16 @@ public class DocumentService {
         return d;
     }
 
+    private void createTags(Document document, String commaseparatedTags) {
+        for (String tag : tagService.parseTags(commaseparatedTags)) {
+            Tag t = new Tag();
+            t.setDocument(document);
+            t.setText(tag);
+            t.setCreatedBy(exampleUser);
+            t.setCreatedStamp(new Timestamp((new java.util.Date()).getTime()));
+            tagDao.create(t);
+        }
+    }
 
 
     @Transactional(Transactional.TxType.SUPPORTS)
@@ -97,5 +101,23 @@ public class DocumentService {
 
     public List<Document> findDocuments(DocumentSearchEvent documentSearchEvent) {
         return documentDAO.findDocumentByTitle(documentSearchEvent.getTerm());
+    }
+
+    //TODO: modifying the tags belongs in another view
+    //TODO: do not delete all tags and recreate them
+    @Transactional
+    public Document updateDocument(UpdateDocumentRequest updateDocumentRequest) {
+        Document document = documentDAO.findDocumentById(updateDocumentRequest.getId());
+        document.setTitle(updateDocumentRequest.getTitle());
+
+        /*
+        List<Tag> existingTags = new ArrayList<Tag>(document.getTags());
+        for (Tag tag : existingTags) {
+            document.getTags().remove(tag);
+            tagDao.delete(tag);
+        }
+        createTags(document, updateDocumentRequest.getTags());
+        */
+        return document;
     }
 }

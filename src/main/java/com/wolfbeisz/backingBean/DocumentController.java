@@ -56,7 +56,10 @@ public class DocumentController {
     }
     public void checkout(){}
 
-    public void update() {}
+    public String update() {
+        Document updatedDocument = documentService.updateDocument(updateDocumentRequest);
+        return "viewDocument.xhtml?documentid="+updatedDocument.getId()+"&faces-redirect=true";
+    }
 
 
     public AddDocumentRequest getDocumentInformation() {
