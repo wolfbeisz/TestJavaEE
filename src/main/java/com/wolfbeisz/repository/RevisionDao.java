@@ -22,4 +22,9 @@ public class RevisionDao {
         revisionQuery.setParameter("documentId", documentId);
         return revisionQuery.getResultList();
     }
+
+    @Transactional
+    public void create(Revision revision) {
+        em.persist(revision);
+    }
 }

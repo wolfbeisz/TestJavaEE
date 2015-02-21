@@ -2,6 +2,7 @@ package com.wolfbeisz.service;
 
 import com.wolfbeisz.model.database.Document;
 import com.wolfbeisz.model.database.Revision;
+import com.wolfbeisz.model.database.Tag;
 import com.wolfbeisz.model.web.DocumentSearchEvent;
 import com.wolfbeisz.model.web.ViewDocumentRequest;
 import com.wolfbeisz.qualifiers.Example;
@@ -18,6 +19,8 @@ import java.util.List;
 
 import com.wolfbeisz.model.database.User;
 import com.wolfbeisz.repository.DocumentDAO;
+import com.wolfbeisz.repository.RevisionDao;
+import com.wolfbeisz.repository.TagDao;
 
 /**
  * Created by Philipp on 16.12.2014.
@@ -25,7 +28,7 @@ import com.wolfbeisz.repository.DocumentDAO;
 
 public class DocumentService {
     @Inject
-    private EntityManager entityManager;
+    private RevisionDao revisionDao;
 
     @Inject @Example
     private User exampleUser;
@@ -33,26 +36,45 @@ public class DocumentService {
     @Inject
     private DocumentDAO documentDAO;
 
-    @Transactional
-    public void createDocument(AddDocumentRequest request) throws IOException {
-        Document d = new Document();
-        Revision r = new Revision();
+    @Inject
+    private TagService tagService;
+    @Inject
+    private TagDao tagDao;
 
+    @Transactional
+    public Document createDocument(AddDocumentRequest request) throws IOException {
+        Document d = new Document();
         d.setTitle(request.getTitle());
         d.setCreatedBy(exampleUser);
         d.setCreatedStamp(new Timestamp((new java.util.Date()).getTime()));
+        documentDAO.create(d);
 
-        entityManager.persist(d);
+        String tags = request.getTags();
+        if (tags == null) {
+            tags = "";
+        }
+        for (String tag : tagService.parseTags(tags)) {
+            Tag t = new Tag();
+            t.setDocument(d);
+            t.setText(tag);
+            t.setCreatedBy(exampleUser);
+            t.setCreatedStamp(new Timestamp((new java.util.Date()).getTime()));
+            tagDao.create(t);
+        }
 
+        Revision r = new Revision();
         r.setCreatedStamp(new Timestamp((new java.util.Date()).getTime()));
         r.setCreatedBy(exampleUser);
         r.setDocument(d);
         r.setFilecontent(org.apache.commons.io.IOUtils.toByteArray(request.getFile().getInputStream()));
         r.setVersion(new BigDecimal(0));
         r.setMimetype(request.getFile().getContentType());
+        revisionDao.create(r);
 
-        entityManager.persist(r);
+        return d;
     }
+
+
 
     @Transactional(Transactional.TxType.SUPPORTS)
     public Document findDocument(long id) {

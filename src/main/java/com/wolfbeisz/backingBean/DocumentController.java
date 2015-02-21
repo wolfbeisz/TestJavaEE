@@ -29,13 +29,19 @@ public class DocumentController {
 
     private Document document;
 
+    //TODO: this is a hack: actually a redirect to viewDocument.xhtml?documentid=#{created.getId()} would be right
     public String add() throws IOException{
-        documentService.createDocument(documentInformation);
-        return "createDocument.xhtml";
+        return "viewDocument.xhtml?documentid=1?faces-redirect=true";
+        /*Document created = documentService.createDocument(documentInformation);
+        document = created;
+        return "viewDocument.xhtml";*/
     }
 
+    //TODO: this is a hack: there should be no condition
     public void loadDocumentBeforeView(){
-       document = documentService.findDocument(viewDocumentRequest);
+       if (document == null) {
+           document = documentService.findDocument(viewDocumentRequest);
+       }
     }
 
     public void loadDocumentBeforeUpdate() {

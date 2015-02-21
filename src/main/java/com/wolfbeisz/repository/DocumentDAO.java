@@ -26,9 +26,15 @@ public class DocumentDAO {
         return em.find(Document.class, id);
     }
 
+    @Transactional(Transactional.TxType.SUPPORTS)
     public List<Document> findDocumentByTitle(String title) {
         TypedQuery<Document> documentQuery = em.createNamedQuery("Document.findByTitle", Document.class);
         documentQuery.setParameter("title", title);
         return documentQuery.getResultList();
+    }
+
+    @Transactional(Transactional.TxType.REQUIRED)
+    public void create(Document document) {
+        em.persist(document);
     }
 }
