@@ -1,6 +1,7 @@
 package com.wolfbeisz.service;
 
 import com.wolfbeisz.event.user.SearchUsersEvent;
+import com.wolfbeisz.event.user.UpdateUserEvent;
 import com.wolfbeisz.model.database.User;
 import com.wolfbeisz.model.web.ViewUserRequest;
 import com.wolfbeisz.repository.UserDao;
@@ -40,5 +41,18 @@ public class UserService {
             term = "";
         }
         return userDao.findUsersByName(search.getTerm());
+    }
+
+    @Transactional
+    public User updateUser(UpdateUserEvent updateUserEvent) {
+        User user = userDao.findUser(updateUserEvent.getUserId());
+
+        user.setName(updateUserEvent.getName());
+        user.setEmail(updateUserEvent.getEmail());
+        user.setPhone(updateUserEvent.getPhone());
+        user.setLocation(updateUserEvent.getLocation());
+        user.setDescription(updateUserEvent.getDescription());
+
+        return user;
     }
 }
