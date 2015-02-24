@@ -4,14 +4,14 @@
         <jta-data-source>java:app/jdbc/main</jta-data-source>
         <properties>
             <!-- see documentation : https://blogs.oracle.com/arungupta/entry/jpa_2_1_schema_generation-->
-<!--            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
             
             <property name="javax.persistence.schema-generation.create-source" value="metadata" />
-            
+            <!--
             <property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create" />
 
-            <property name="javax.persistence.schema-generation.scripts.create-target" value="C:/Users/Philipp/Desktop/create-ddl.sql" />
-            <property name="javax.persistence.schema-generation.scripts.drop-target" value="C:/Users/Philipp/Desktop/drop-ddl.sql" />-->
+                        <property name="javax.persistence.schema-generation.scripts.create-target" value="C:/Users/Philipp/Desktop/create-ddl.sql" />
+                        <property name="javax.persistence.schema-generation.scripts.drop-target" value="C:/Users/Philipp/Desktop/drop-ddl.sql" />-->
         </properties>
 	</persistence-unit>
 </persistence>

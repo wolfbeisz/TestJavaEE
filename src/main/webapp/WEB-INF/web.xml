@@ -28,6 +28,7 @@
     </context-param>
     -->
 
+    <!--
     <data-source>
         <name>java:app/jdbc/main</name>
         <class-name>oracle.jdbc.OracleDriver</class-name>
@@ -35,6 +36,16 @@
         <user>docmgr</user>
         <password>docmgr</password>
     </data-source>
+    -->
+    <data-source>
+        <name>java:app/jdbc/main</name>
+        <class-name>org.postgresql.Driver</class-name>
+        <url>jdbc:postgresql://127.0.0.1:5432/docmgr</url>
+        <user>docmgr</user>
+        <password>docmgr</password>
+    </data-source>
+
+
     <!-- @DataSourceDefinition(
     className = "oracle.jdbc.OracleDriver",
     name = "java:global/jdbc/main",

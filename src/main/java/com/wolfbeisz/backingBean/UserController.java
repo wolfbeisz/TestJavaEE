@@ -1,5 +1,6 @@
 package com.wolfbeisz.backingBean;
 
+import com.wolfbeisz.event.user.FollowUserEvent;
 import com.wolfbeisz.model.database.User;
 import com.wolfbeisz.model.web.ViewUserRequest;
 import com.wolfbeisz.qualifiers.Example;
@@ -16,11 +17,22 @@ import javax.inject.Named;
 @Named
 public class UserController {
     private User user;
+
+    @Inject @Example
+    private User authenticatedUser;
+
     private ViewUserRequest viewRequest = new ViewUserRequest();
+
     @Inject
     private UserService userService;
 
-    public void follow() {}
+    public String follow() {
+        FollowUserEvent followUserEvent = new FollowUserEvent();
+        followUserEvent.setUserId(authenticatedUser.getId());
+        followUserEvent.setIdolId(viewRequest.getId());
+        userService.followUser(followUserEvent);
+        return "viewUser.xhtml?userid="+followUserEvent.getIdolId()+"faces-redirect=true";
+    }
     public void unfollow() {}
     public void loadUser() {
         user = userService.findUser(viewRequest);

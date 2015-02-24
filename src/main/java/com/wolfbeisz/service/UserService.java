@@ -1,5 +1,6 @@
 package com.wolfbeisz.service;
 
+import com.wolfbeisz.event.user.FollowUserEvent;
 import com.wolfbeisz.event.user.SearchUsersEvent;
 import com.wolfbeisz.event.user.UpdateUserEvent;
 import com.wolfbeisz.model.database.User;
@@ -54,5 +55,21 @@ public class UserService {
         user.setDescription(updateUserEvent.getDescription());
 
         return user;
+    }
+
+    @Transactional
+    public void followUser(FollowUserEvent  followUserEvent)
+    {
+        /*if (followUserEvent.getUserId() == followUserEvent.getIdolId()) {
+            throw new IllegalStateException("a user cannot follow herself/himself/itself");
+        }*/
+
+        User user = userDao.findUser(followUserEvent.getUserId());
+        User idol = userDao.findUser(followUserEvent.getIdolId());
+
+        //TODO: additional validations
+
+        user.getIdols().add(idol);
+        idol.getFollowers().add(user);
     }
 }

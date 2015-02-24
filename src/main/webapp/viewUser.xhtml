@@ -15,8 +15,11 @@
 <h:body>
     <h1>#{userController.user.name}</h1>
 
-    <h:commandButton value="follow" action="#{userController.follow}"/>
-    <h:commandButton value="unfollow" action="#{userController.unfollow}"/>
+    <!--realize this feature with ajax-->
+    <h:form>
+        <h:commandButton value="follow" action="#{userController.follow}"/>
+        <h:commandButton value="unfollow" action="#{userController.unfollow}"/>
+    </h:form>
 
     <h2>Contact</h2>
     <h:panelGrid columns="2">
