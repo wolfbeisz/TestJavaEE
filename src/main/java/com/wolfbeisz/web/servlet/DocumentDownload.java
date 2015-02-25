@@ -50,6 +50,7 @@ public class DocumentDownload extends HttpServlet {
 
             String mimetype = revision.getString("mimetype");
             resp.setHeader("Content-Type", mimetype);
+            resp.setHeader("Content-Disposition", "attachment");
             InputStream file = revision.getBinaryStream("filecontent");
             IOUtils.copy(file, resp.getOutputStream());
         } catch (SQLException e) {

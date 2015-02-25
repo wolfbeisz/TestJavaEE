@@ -29,7 +29,9 @@
             #{curRevision.mimetype}
         </h:column>
         <h:column>
-            TODO: downloadlink
+            <h:outputLink value="downloadDocument?revisionId=#{curRevision.id}">
+                download
+            </h:outputLink>
         </h:column>
     </h:dataTable>
 
