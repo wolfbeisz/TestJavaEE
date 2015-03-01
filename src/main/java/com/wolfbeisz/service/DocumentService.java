@@ -31,6 +31,7 @@ public class DocumentService {
     @Inject
     private RevisionDao revisionDao;
 
+    //TODO: shouldn't do that as it couples the service and the web tier. The user should be provided by the appropriate value-object
     @Inject @Example
     private User exampleUser;
 

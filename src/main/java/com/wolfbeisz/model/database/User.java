@@ -27,7 +27,7 @@ public class User implements Serializable {
 	@Column(length=256)
 	private String description;
 
-	@Column(nullable=false, length=256)
+	@Column(unique = true, nullable=false, length=256)
 	private String email;
 
 	@Column(length=256)
@@ -87,6 +87,13 @@ public class User implements Serializable {
         inverseJoinColumns = @JoinColumn(name="FOLLOWERID")
     )
     private List<User> followers;
+
+    @ManyToMany
+    @JoinTable(name = "USER_IN_GROUP",
+            joinColumns = @JoinColumn(name = "USER_EMAIL", referencedColumnName = "email"),
+            inverseJoinColumns = @JoinColumn(name = "GROUP_NAME", referencedColumnName = "name")
+    )
+    private List<Group> groups;
 
 	public User() {
 	}
@@ -316,5 +323,13 @@ public class User implements Serializable {
         user.getFollowers().add(this);
 
         return user;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 }

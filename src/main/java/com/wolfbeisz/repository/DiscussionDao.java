@@ -26,4 +26,9 @@ public class DiscussionDao {
         discussionQuery.setParameter("documentId", documentid);
         return discussionQuery.getResultList();
     }
+
+    @Transactional
+    public void create(Discussion discussion) {
+        em.persist(discussion);
+    }
 }
