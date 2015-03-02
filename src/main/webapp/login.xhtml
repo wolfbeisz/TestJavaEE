@@ -7,8 +7,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
     <form method="POST" action="j_security_check">
-        <input type="text" name="j_username"/>
-        <input type="password" name="j_password"/>
+        <label for="username">email</label>
+        <input type="text" name="j_username" id="username"/>
+        <label for="password">password</label>
+        <input type="password" name="j_password" id="password"/>
         <input type="submit" value="login"/>
         <input type="reset" value="reset"/>
     </form>
