@@ -332,4 +332,18 @@ public class User implements Serializable {
     public void setGroups(List<Group> groups) {
         this.groups = groups;
     }
+
+    public Group addGroup(Group group) {
+        getGroups().add(group);
+        group.getUsers().add(this);
+
+        return group;
+    }
+
+    public Group removeGroup(Group group) {
+        getGroups().remove(group);
+        group.getUsers().remove(this);
+
+        return group;
+    }
 }

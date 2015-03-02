@@ -32,4 +32,9 @@ public class UserDao {
         TypedQuery<User> query = em.createNamedQuery("User.findAll", User.class);
         return query.getResultList();
     }
+
+    @Transactional(Transactional.TxType.REQUIRED)
+    public void create(User user) {
+        em.persist(user);
+    }
 }

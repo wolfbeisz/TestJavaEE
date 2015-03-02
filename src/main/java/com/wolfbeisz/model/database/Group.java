@@ -8,6 +8,9 @@ import java.util.List;
  */
 @Entity
 @Table(name="GROUPS")
+@NamedQueries(
+        @NamedQuery(name="Group.findByName", query = "SELECT g FROM Group g WHERE g.name = :name")
+)
 public class Group {
     @Id
     @GeneratedValue

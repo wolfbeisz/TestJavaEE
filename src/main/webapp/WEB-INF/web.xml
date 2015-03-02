@@ -61,7 +61,7 @@
             <!-- specify no http-method to protect or not_to_protect: therefore all are protected -->
         </web-resource-collection>
         <auth-constraint>
-            <role-name>authorized-user</role-name>
+            <role-name>user</role-name>
             <role-name>admin</role-name>
         </auth-constraint>
         <!-- specify no user-data-constraint; default is none -->
