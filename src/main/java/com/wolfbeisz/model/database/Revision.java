@@ -3,6 +3,7 @@ package com.wolfbeisz.model.database;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,6 +40,7 @@ public class Revision extends Activity implements Serializable {
 	private Document document;
 
 	public Revision() {
+        checkouts = new ArrayList<Checkout>();
 	}
 
 	public byte[] getFilecontent() {

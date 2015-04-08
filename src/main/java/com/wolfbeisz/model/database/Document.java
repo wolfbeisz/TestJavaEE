@@ -2,6 +2,7 @@ package com.wolfbeisz.model.database;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,6 +36,9 @@ public class Document extends Activity implements Serializable {
 	private List<Tag> tags;
 
 	public Document() {
+        discussions = new ArrayList<Discussion>();
+        revisions = new ArrayList<Revision>();
+        tags = new ArrayList<Tag>();
 	}
 
 	public String getTitle() {

@@ -1,6 +1,7 @@
 package com.wolfbeisz.model.database;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +22,10 @@ public class Group {
 
     @ManyToMany(mappedBy = "groups")
     private List<User> users;
+
+    public Group() {
+        users = new ArrayList<User>();
+    }
 
 
     public long getId() {

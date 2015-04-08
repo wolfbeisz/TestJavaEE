@@ -2,6 +2,7 @@ package com.wolfbeisz.model.database;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -96,6 +97,14 @@ public class User implements Serializable {
     private List<Group> groups;
 
 	public User() {
+        checkouts = new ArrayList<Checkout>();
+        comments = new ArrayList<Comment>();
+        discussions = new ArrayList<Discussion>();
+        documents = new ArrayList<Document>();
+        revisions = new ArrayList<Revision>();
+        tags = new ArrayList<Tag>();
+        idols = new ArrayList<User>();
+        followers = new ArrayList<User>();
 	}
 
 	public long getId() {

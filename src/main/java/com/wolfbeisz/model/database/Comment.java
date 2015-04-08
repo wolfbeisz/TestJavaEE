@@ -3,6 +3,7 @@ package com.wolfbeisz.model.database;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,6 +40,7 @@ public class Comment extends Activity implements Serializable {
 	private Discussion discussion;
 
 	public Comment() {
+        comments = new ArrayList<Comment>();
 	}
 
 	public BigDecimal getPosition() {

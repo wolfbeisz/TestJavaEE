@@ -2,6 +2,7 @@ package com.wolfbeisz.model.database;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,6 +29,7 @@ public class Discussion extends Activity implements Serializable {
 	private Document document;
 
 	public Discussion() {
+        comments = new ArrayList<Comment>();
 	}
 
 	public List<Comment> getComments() {
