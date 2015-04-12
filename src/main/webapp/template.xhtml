@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet name="css/bootstrap.css"/>
+    <h:outputStylesheet name="css/bootstrap.min.css"/>
+    <script src="http://code.jquery.com/jquery.js" type="text/javascript"></script>
+    <title><ui:insert name="title"></ui:insert></title>
+    <style type="text/css">
+        body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+    </style>
+</h:head>
+<h:body>
+    <!-- menu -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">Project name</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li><a href="dashboard.xhtml">Dashboard</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Document
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="createDocument.xhtml">Create</a></li>
+                                <li><a href="browseDocuments.xhtml">Browse</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Profile
+                                <b class="caret"></b>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li><a href="browseUsers.xhtml">Browse others'</a></li>
+                                <li><a href="#own">View own profile</a></li>
+                                <li><a href="#editOwn">Edit own profile</a></li>
+                                <li><a href="#following">Manage idols</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+    <!-- main content -->
+    <div class="container">
+        <div class="row-fluid">
+            <ui:insert name="content"/>
+        </div>
+    </div>
+
+    <h:outputScript name="js/bootstrap.min.js"/>
+</h:body>
+</html>

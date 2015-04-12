@@ -13,10 +13,9 @@ go to viewDocument
 <!-- TODO: add a button to reset the filter (search term) and show all documents (again)-->
 <!-- TODO: works only for exact title -->
 
-<h:head>
-
-</h:head>
-<h:body>
+<ui:composition template="template.xhtml">
+    <ui:define name="title">Browse Documents</ui:define>
+    <ui:define name="content">
     <h1>Browse Documents</h1>
     <h:form>
         <h:inputText value="#{searchController.documentSearchEvent.term}"></h:inputText>
@@ -43,7 +42,7 @@ go to viewDocument
         <h:commandButton value="backward" action="#{searchController.backward}"/>
         <h:commandButton value="forward" action="#{searchController.forward}"/>
     </c:if>
-
-</h:body>
+    </ui:define>
+</ui:composition>
 
 </html>
