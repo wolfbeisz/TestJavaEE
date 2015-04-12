@@ -12,6 +12,8 @@
 
                         <property name="javax.persistence.schema-generation.scripts.create-target" value="C:/Users/Philipp/Desktop/create-ddl.sql" />
                         <property name="javax.persistence.schema-generation.scripts.drop-target" value="C:/Users/Philipp/Desktop/drop-ddl.sql" />-->
+            <property name="javax.persistence.sql-load-script-source" value="META-INF/sql/data.sql" />
+            <property name="eclipselink.logging.level" value="FINE"/>
         </properties>
 	</persistence-unit>
 </persistence>

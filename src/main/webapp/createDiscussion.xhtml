@@ -6,18 +6,19 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:metadata>
-    <f:viewParam name="documentId" value="#{createDiscussionController.createDiscussionEvent.documentId}"/>
+    <f:viewParam name="documentid" value="#{createDiscussionController.createDiscussionEvent.documentId}" required="true"/>
 </f:metadata>
 
 <h:head></h:head>
 <h:body>
+    <h1>Start discussion!</h1>
     <h:form>
         <h:panelGrid columns="2">
-            <h:outputLabel value="Topic: "/>
-            <h:inputText value="#{createDiscussionController.createDiscussionEvent.topic}" />
+            <h:outputLabel for="topic" value="Topic: "/>
+            <h:inputText id="topic" value="#{createDiscussionController.createDiscussionEvent.topic}" />
 
-            <h:outputLabel value="Your opinion:"/>
-            <h:inputTextarea value="#{createDiscussionController.createDiscussionEvent.firstPost}"/>
+            <h:outputLabel for="comment" value="Your opinion:"/>
+            <h:inputTextarea id="comment" value="#{createDiscussionController.createDiscussionEvent.firstPost}"/>
 
             <h:commandButton value="create" action="#{createDiscussionController.createDiscussion}"/>
         </h:panelGrid>

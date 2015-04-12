@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:metadata>
-    <f:viewParam name="documentid" value="#{documentController.viewDocumentRequest.documentid}" />
+    <f:viewParam name="documentid" value="#{documentController.viewDocumentRequest.documentid}" required="true"/>
     <f:viewAction action="#{documentController.loadDocumentBeforeView}" />
 </f:metadata>
 <h:head>
@@ -15,23 +15,46 @@
 <h:body>
     <h1>View Document</h1>
 
+    <h:form>
+        <!-- add buttons for the various actions here -->
+        <h:commandButton value="checkout" action="#{documentController.checkout}"/>
+        <h:commandButton value="checkin" action="#{documentController.checkin}"/>
+    </h:form>
 
-    <!-- add buttons for the various actions here -->
-    <h:commandButton value="checkout" action="#{documentController.checkout}"/>
-    <h:commandButton value="checkin" action="#{documentController.checkin}"/>
-    <h:commandButton value="upload revision" action="#{documentController.checkout}"/>
-    <h:commandButton value="show revisions" action="#{documentController.checkout}"/>
-    <h:commandButton value="start discussion" action="#{documentController.checkout}"/>
-    <h:commandButton value="show discussions" action="#{documentController.checkout}"/>
+    <!--
 
+    <h:button outcome="viewRevisions.xhtml" includeViewParams="true" value="show revisions"/>
+    <h:button outcome="createRevision.xhtml" includeViewParams="true" value="upload revision"/>
+    <h:button outcome="viewDiscussions.xhtml" includeViewParams="true" value="show discussions"/>
+    <h:button outcome="createDiscussion.xhtml" includeViewParams="true" value="start discussion"/>
+-->
 
+    <h:button outcome="viewRevisions.xhtml" value="show revisions">
+        <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+    </h:button>
+    <h:button outcome="createRevision.xhtml" value="upload revision">
+        <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+    </h:button>
+    <h:button outcome="viewDiscussions.xhtml" value="show discussions">
+        <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+    </h:button>
+    <h:button outcome="createDiscussion.xhtml" value="start discussion">
+        <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+    </h:button>
+<!--
+    <br />
+    <h:button outcome="viewRevisions.xhtml?documentid=#{documentController.viewDocumentRequest.documentid}" value="show revisions"/>
+    <h:button outcome="createRevision.xhtml?documentid=#{documentController.viewDocumentRequest.documentid}" value="upload revision"/>
+    <h:button outcome="viewDiscussions.xhtml?documentid=#{documentController.viewDocumentRequest.documentid}" value="show discussions"/>
+    <h:button outcome="createDiscussion.xhtml?documentid=#{documentController.viewDocumentRequest.documentid}" value="start discussion"/>
+-->
     <!--<h:commandButton value="download latest" action=""></h:commandButton>-->
 
     <h:panelGrid columns="2">
-        <h:outputLabel value="title"/>
-        <h:outputLabel value="#{documentController.document.title}"/>
+        <h:outputText value="title"/>
+        <h:outputText value="#{documentController.document.title}"/>
 
-        <h:outputLabel value="tags"/>
+        <h:outputText value="tags"/>
         <h:dataTable value="#{documentController.document.tags}" var="tag">
             <h:column>
                 <f:facet name="header">
@@ -42,12 +65,12 @@
 
         </h:dataTable>
 
-        <h:outputLabel value="created at:"/>
-        <h:outputLabel value="#{documentController.document.createdStamp}"/>
+        <h:outputText value="created at:"/>
+        <h:outputText value="#{documentController.document.createdStamp}">
+        </h:outputText>
 
-        <h:outputLabel value="created by: "/>
-        <h:outputLabel value="#{documentController.document.createdBy.name}"/>
+        <h:outputText value="created by: "/>
+        <h:outputText value="#{documentController.document.createdBy.name}"/>
     </h:panelGrid>
-
 </h:body>
 </html>

@@ -17,12 +17,13 @@ import java.util.List;
 public class Comment extends Activity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="POSITION", nullable=false, precision=6)
-	private BigDecimal position;
+//	@Column(name="POSITION", nullable=false, precision=6)
+//	private BigDecimal position;
 
 	@Column(nullable=false, length=4000)
 	private String text;
 
+    /*
 	//bi-directional many-to-one association to Comment
     //parent comment: the comment to which this one relates to
 	@ManyToOne
@@ -33,6 +34,7 @@ public class Comment extends Activity implements Serializable {
     //child comments : the comments which relate to this one
 	@OneToMany(mappedBy="comment")
 	private List<Comment> comments;
+    */
 
 	//bi-directional many-to-one association to Discussion
 	@ManyToOne
@@ -40,16 +42,17 @@ public class Comment extends Activity implements Serializable {
 	private Discussion discussion;
 
 	public Comment() {
-        comments = new ArrayList<Comment>();
+        //comments = new ArrayList<Comment>();
 	}
 
+    /*
 	public BigDecimal getPosition() {
 		return this.position;
 	}
 
 	public void setPosition(BigDecimal position) {
 		this.position = position;
-	}
+	}*/
 
 	public String getText() {
 		return this.text;
@@ -59,6 +62,7 @@ public class Comment extends Activity implements Serializable {
 		this.text = text;
 	}
 
+    /*
 	public Comment getComment() {
 		return this.comment;
 	}
@@ -75,6 +79,7 @@ public class Comment extends Activity implements Serializable {
 		this.comments = comments;
 	}
 
+
 	public Comment addComment(Comment comment) {
 		getComments().add(comment);
 		comment.setComment(this);
@@ -88,7 +93,7 @@ public class Comment extends Activity implements Serializable {
 
 		return comment;
 	}
-
+    */
 	public Discussion getDiscussion() {
 		return this.discussion;
 	}

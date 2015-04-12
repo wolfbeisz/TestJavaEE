@@ -15,10 +15,11 @@
 <h:body>
     <h1>Discussion</h1>
 
-    <h:commandButton value="begin new" />
-    <h:commandButton value="previous discussion" />
-    <h:commandButton value="next discussion" />
-
+    <h:form>
+        <h:commandButton value="begin new" />
+        <h:commandButton value="previous discussion" />
+        <h:commandButton value="next discussion" />
+    </h:form>
 
     <h:dataTable value="#{discussionController.discussion.comments}" var="comment" >
         <h:column>
@@ -40,9 +41,10 @@
     </h:dataTable>
 
     <!-- TODO: add the ajax action, form missing -->
-    <h:outputText value="Your comment:"/>
-    <h:inputTextarea />
-    <h:commandButton value="post"/>
-
+    <h:form>
+        <h:outputText value="Your comment:"/>
+        <h:inputTextarea value="#{discussionController.addCommentEvent.commentText}"/>
+        <h:commandButton action="#{discussionController.addComment}" value="post"/>
+    </h:form>
 </h:body>
 </html>

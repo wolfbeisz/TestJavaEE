@@ -1,6 +1,8 @@
 package com.wolfbeisz.repository;
 
 import com.wolfbeisz.model.database.Document;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -13,6 +15,7 @@ import java.util.List;
  * Created by Philipp on 18.02.2015.
  */
 public class DocumentDAO {
+    private static final Logger logger = LogManager.getLogger();
     @Inject
     private EntityManager em;
 

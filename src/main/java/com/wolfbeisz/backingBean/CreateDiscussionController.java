@@ -3,20 +3,24 @@ package com.wolfbeisz.backingBean;
 import com.wolfbeisz.event.discussion.CreateDiscussionEvent;
 import com.wolfbeisz.model.database.Discussion;
 import com.wolfbeisz.model.database.User;
+import com.wolfbeisz.qualifiers.Authenticated;
 import com.wolfbeisz.qualifiers.Example;
 import com.wolfbeisz.service.DiscussionService;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.Date;
 
 /**
  * Created by Philipp on 25.02.2015.
  */
-@Model
+@Named
+@RequestScoped
 public class CreateDiscussionController {
     private CreateDiscussionEvent createDiscussionEvent = new CreateDiscussionEvent();
-    @Inject @Example
+    @Inject @Authenticated
     private User user;
 
     @Inject

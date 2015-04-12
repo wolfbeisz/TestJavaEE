@@ -6,6 +6,8 @@ import com.wolfbeisz.model.web.UpdateDocumentRequest;
 import com.wolfbeisz.model.web.ViewDocumentRequest;
 import com.wolfbeisz.service.DocumentService;
 import com.wolfbeisz.model.web.AddDocumentRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -19,6 +21,8 @@ import java.io.IOException;
 @Named
 @RequestScoped
 public class DocumentController {
+    private static final Logger logger = LogManager.getLogger(DocumentController.class);
+
     private AddDocumentRequest documentInformation = new AddDocumentRequest();
     private ViewDocumentRequest viewDocumentRequest = new ViewDocumentRequest();
     private UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest();
@@ -34,7 +38,8 @@ public class DocumentController {
     }
 
     public void loadDocumentBeforeView(){
-           document = documentService.findDocument(viewDocumentRequest);
+        document = documentService.findDocument(viewDocumentRequest);
+        //logger.trace("document loaded: "+document.getClass());
     }
 
     public void loadDocumentBeforeUpdate() {

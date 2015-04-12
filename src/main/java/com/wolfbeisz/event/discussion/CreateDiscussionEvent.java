@@ -53,4 +53,9 @@ public class CreateDiscussionEvent {
     public void setUserId(long userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "CreateDiscussionEvent [documentId="+documentId+",topic="+topic+", firstPost="+firstPost+", userId="+userId+"timestamp="+timestamp+"]";
+    }
 }

@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:metadata>
     <!-- the documentid of the document -->
-    <f:viewParam name="documentid" value="#{revisionController.viewRequest.documentid}"/>
+    <f:viewParam name="documentid" value="#{revisionController.viewRequest.documentid}" required="true"/>
     <f:viewAction action="#{revisionController.loadRevisions}"/>
 </f:metadata>
 
@@ -35,7 +35,5 @@
         </h:column>
     </h:dataTable>
 
-    <h:commandButton value="back" action="#{revisionController.back}" />
-    <h:commandButton value="next" action="#{revisionController.next}" />
 </h:body>
 </html>

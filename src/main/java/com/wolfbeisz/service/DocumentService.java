@@ -6,6 +6,7 @@ import com.wolfbeisz.model.database.Tag;
 import com.wolfbeisz.model.web.DocumentSearchEvent;
 import com.wolfbeisz.model.web.UpdateDocumentRequest;
 import com.wolfbeisz.model.web.ViewDocumentRequest;
+import com.wolfbeisz.qualifiers.Authenticated;
 import com.wolfbeisz.qualifiers.Example;
 import com.wolfbeisz.model.web.AddDocumentRequest;
 
@@ -32,8 +33,8 @@ public class DocumentService {
     private RevisionDao revisionDao;
 
     //TODO: shouldn't do that as it couples the service and the web tier. The user should be provided by the appropriate value-object
-    @Inject @Example
-    private User exampleUser;
+    @Inject @Authenticated
+    private User user;
 
     @Inject
     private DocumentDAO documentDAO;
@@ -47,7 +48,7 @@ public class DocumentService {
     public Document createDocument(AddDocumentRequest request) throws IOException {
         Document d = new Document();
         d.setTitle(request.getTitle());
-        d.setCreatedBy(exampleUser);
+        d.setCreatedBy(user);
         d.setCreatedStamp(new Timestamp((new java.util.Date()).getTime()));
         documentDAO.create(d);
 
@@ -60,7 +61,7 @@ public class DocumentService {
         // use ModelUtil.createRevision
         Revision r = new Revision();
         r.setCreatedStamp(new Timestamp((new java.util.Date()).getTime()));
-        r.setCreatedBy(exampleUser);
+        r.setCreatedBy(user);
         r.setDocument(d);
         r.setFilecontent(org.apache.commons.io.IOUtils.toByteArray(request.getFile().getInputStream()));
         r.setVersion(new BigDecimal(0));
@@ -75,9 +76,11 @@ public class DocumentService {
             Tag t = new Tag();
             t.setDocument(document);
             t.setText(tag);
-            t.setCreatedBy(exampleUser);
+            t.setCreatedBy(user);
             t.setCreatedStamp(new Timestamp((new java.util.Date()).getTime()));
             tagDao.create(t);
+
+            document.addTag(t);
         }
     }
 

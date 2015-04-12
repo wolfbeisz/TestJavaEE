@@ -37,4 +37,11 @@ public class UserDao {
     public void create(User user) {
         em.persist(user);
     }
+
+    @Transactional(Transactional.TxType.SUPPORTS)
+    public User findUserByEmail(String email) {
+        TypedQuery<User> userByEmailQuery = em.createNamedQuery("User.findByEmail", User.class);
+        userByEmailQuery.setParameter("email", email);
+        return userByEmailQuery.getSingleResult();
+    }
 }

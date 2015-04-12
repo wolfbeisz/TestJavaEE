@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- documentation: https://logging.apache.org/log4j/2.x/manual/configuration.html -->
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="error">
+            <AppenderRef ref="Console"/>
+        </Root>
+        <Logger name="com.wolfbeisz" level="trace">
+            <!-- an appender could be specified here, but then additivity="false" is necessary for this logger
+            (otherwise log messages can appear several times (for each appender of a logger and its ancestors)
+            -->
+        </Logger>
+    </Loggers>
+</Configuration>

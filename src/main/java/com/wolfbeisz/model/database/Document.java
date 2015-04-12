@@ -17,7 +17,7 @@ import java.util.List;
         @NamedQuery(name="Document.findByTitle", query="SELECT d FROM Document d WHERE d.title = :title")
 })
 
-public class Document extends Activity implements Serializable {
+public class Document extends Activity /*implements Serializable*/ {
 	private static final long serialVersionUID = 1L;
 
 	@Column(nullable=false, length=256)
@@ -32,7 +32,7 @@ public class Document extends Activity implements Serializable {
 	private List<Revision> revisions;
 
 	//bi-directional many-to-one association to Tag
-	@OneToMany(mappedBy="document")
+	@OneToMany(mappedBy="document", fetch = FetchType.EAGER)
 	private List<Tag> tags;
 
 	public Document() {
