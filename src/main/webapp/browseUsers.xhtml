@@ -4,9 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 <!-- TODO: add a button to reset the search (means: show all users as in initial state)-->
-<!-- TODO: link to users' profiles -->
 
 <ui:composition template="template.xhtml">
     <ui:define name="title">Browse users</ui:define>
@@ -14,7 +14,8 @@
         <h1>Browse users</h1>
 
         <h:form>
-            <h:inputText value="#{userBrowserController.searchUsersEvent.term}" /><h:commandButton value="search" action="#{userBrowserController.search}"/>
+            <h:inputText value="#{userBrowserController.searchUsersEvent.term}" />
+            <button jsf:action="#{userBrowserController.search}" class="btn">search</button>
         </h:form>
         <h:dataTable value="#{userBrowserController.users}" var="user">
             <h:column>
@@ -23,7 +24,9 @@
             </h:column>
             <h:column>
                 <f:facet name="header">Name</f:facet>
-                #{user.name}
+                <h:link outcome="viewUser.xhtml" value="#{user.name}">
+                    <f:param name="userid" value="#{user.id}"></f:param>
+                </h:link>
             </h:column>
             <h:column>
                 <f:facet name="header">E-Mail</f:facet>

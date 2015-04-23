@@ -4,37 +4,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 <!-- TODO:
 - load the logged in (currently) user's entity
 - introduce a 'UserUpdateRequest'
 -->
 
-<h:head></h:head>
-<h:body>
-    <h:form>
-        <h:outputLabel value="name" />
-        <h:inputText value="#{updateUserController.updateUserEvent.name}"/>
+<ui:composition template="template.xhtml">
+    <ui:define name="title">Edit profile</ui:define>
+    <ui:define name="content">
+        <h1>Edit profile</h1>
+        <h:form>
+            <h:outputLabel value="name" />
+            <h:inputText value="#{updateUserController.updateUserEvent.name}"/>
 
-        <!--TODO: feature: change the profile picture -->
+            <!--TODO: feature: change the profile picture -->
 
-        <h2>Contact</h2>
-        <h:panelGrid columns="2">
-            <h:outputLabel value="E-Mail"/>
-            <h:inputText value="#{updateUserController.updateUserEvent.email}"/>
+            <h2>Contact</h2>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="E-Mail"/>
+                <h:inputText value="#{updateUserController.updateUserEvent.email}"/>
 
-            <h:outputLabel value="Phone"/>
-            <h:inputText value="#{updateUserController.updateUserEvent.phone}"/>
+                <h:outputLabel value="Phone"/>
+                <h:inputText value="#{updateUserController.updateUserEvent.phone}"/>
 
-            <h:outputLabel value="Location"/>
-            <h:inputText value="#{updateUserController.updateUserEvent.location}"/>
-        </h:panelGrid>
+                <h:outputLabel value="Location"/>
+                <h:inputText value="#{updateUserController.updateUserEvent.location}"/>
+            </h:panelGrid>
 
-        <h2>About me</h2>
-        <h:inputTextarea value="#{updateUserController.updateUserEvent.description}"/>
+            <h2>About me</h2>
+            <h:inputTextarea value="#{updateUserController.updateUserEvent.description}"/>
 
-
-        <h:commandButton value="save" action="#{updateUserController.update}"/>
-    </h:form>
-</h:body>
+            <!--<h:commandButton value="save" action="#{updateUserController.update}"/>-->
+            <button jsf:action="#{updateUserController.update}" class="btn">save</button>
+        </h:form>
+    </ui:define>
+</ui:composition>
 </html>

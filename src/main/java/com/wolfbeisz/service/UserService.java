@@ -2,6 +2,7 @@ package com.wolfbeisz.service;
 
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
+import com.wolfbeisz.event.UnfollowUserEvent;
 import com.wolfbeisz.event.user.CreateUserEvent;
 import com.wolfbeisz.event.user.FollowUserEvent;
 import com.wolfbeisz.event.user.SearchUsersEvent;
@@ -79,6 +80,14 @@ public class UserService {
 
         user.getIdols().add(idol);
         idol.getFollowers().add(user);
+    }
+
+    @Transactional
+    public void unfollowUser(UnfollowUserEvent event) {
+        User user = userDao.findUser(event.getUserId());
+        User idol = userDao.findUser(event.getIdolId());
+        user.getIdols().remove(idol);
+        idol.getFollowers().remove(user);
     }
 
     @Transactional

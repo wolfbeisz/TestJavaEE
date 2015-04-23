@@ -5,7 +5,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
 <!-- my vision of this page: (1) the user opens it and the page shows all available documents and can click on them to
 go to viewDocument
 (2) beneath he can search for a term and only documents related to the term will be shown
@@ -19,14 +20,17 @@ go to viewDocument
     <h1>Browse Documents</h1>
     <h:form>
         <h:inputText value="#{searchController.documentSearchEvent.term}"></h:inputText>
-        <h:commandButton value="search" action="#{searchController.search}" />
+        <button jsf:action="#{searchController.search}" class="btn">search</button>
     </h:form>
 
     <c:if test="#{!(empty searchController.results)}">
         <h:dataTable value="#{searchController.results}" var="document">
             <h:column>
                 <f:facet name="header">title</f:facet>
-                #{document.title}
+
+                <h:link outcome="viewDocument.xhtml" value="#{document.title}">
+                    <f:param name="documentid" value="#{document.id}"></f:param>
+                </h:link>
             </h:column>
             <h:column>
                 <f:facet name="header">author</f:facet>
@@ -37,10 +41,6 @@ go to viewDocument
                 #{document.createdStamp}
             </h:column>
         </h:dataTable>
-
-        <!-- TODO: pagination -->
-        <h:commandButton value="backward" action="#{searchController.backward}"/>
-        <h:commandButton value="forward" action="#{searchController.forward}"/>
     </c:if>
     </ui:define>
 </ui:composition>

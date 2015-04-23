@@ -5,26 +5,29 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head></h:head>
-<h:body>
-    <h1>Create a user</h1>
-    <h:form>
-        <h:panelGrid columns="2">
-            <h:outputLabel value="name"/>
-            <h:inputText value="#{createUserController.createUserEvent.name}"/>
+<ui:composition template="template.xhtml">
+    <ui:define name="title">Create a user</ui:define>
+    <ui:define name="content">
+        <h1>Create a user</h1>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="name"/>
+                <h:inputText value="#{createUserController.createUserEvent.name}"/>
 
-            <h:outputLabel value="email" />
-            <h:inputText value="#{createUserController.createUserEvent.email}"></h:inputText>
+                <h:outputLabel value="email" />
+                <h:inputText value="#{createUserController.createUserEvent.email}"></h:inputText>
 
-            <h:outputLabel value="password" />
-            <h:inputSecret value="#{createUserController.createUserEvent.password}" />
+                <h:outputLabel value="password" />
+                <h:inputSecret value="#{createUserController.createUserEvent.password}" />
 
-            <h:outputLabel value="grant administrator privleges" />
-            <h:selectBooleanCheckbox value="#{createUserController.createUserEvent.administrator}"/>
+                <h:outputLabel value="grant administrator privleges" />
+                <h:selectBooleanCheckbox value="#{createUserController.createUserEvent.administrator}"/>
 
-            <h:commandButton value="create user" action="#{createUserController.createUser}"/>
+                <h:commandButton value="create user" action="#{createUserController.createUser}"/>
 
-        </h:panelGrid>
-    </h:form>
-</h:body>
+            </h:panelGrid>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
 </html>

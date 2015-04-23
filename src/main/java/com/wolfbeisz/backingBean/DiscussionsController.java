@@ -8,6 +8,7 @@ import com.wolfbeisz.service.DiscussionService;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -16,8 +17,8 @@ import java.util.Collection;
 @Named
 @RequestScoped
 public class DiscussionsController {
-    @Inject @Example
-    private Collection<Discussion> discussions;
+
+    private Collection<Discussion> discussions = new ArrayList<Discussion>();
     @Inject
     private DiscussionService discussionService;
 

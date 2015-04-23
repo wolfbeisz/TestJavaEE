@@ -3,6 +3,7 @@ package com.wolfbeisz.backingBean;
 import com.wolfbeisz.event.user.UpdateUserEvent;
 import com.wolfbeisz.model.database.User;
 import com.wolfbeisz.model.web.ViewUserRequest;
+import com.wolfbeisz.qualifiers.Authenticated;
 import com.wolfbeisz.qualifiers.Example;
 import com.wolfbeisz.service.UserService;
 
@@ -18,7 +19,7 @@ import javax.inject.Named;
 @RequestScoped //TODO: correct scope?
 public class UpdateUserController {
     //TODO: inject the currently authenticated user
-    @Inject @Example
+    @Inject @Authenticated
     private User user;
     //private ViewUserRequest viewRequest = new ViewUserRequest();
     @Inject

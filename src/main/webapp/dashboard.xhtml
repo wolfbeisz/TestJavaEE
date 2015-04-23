@@ -36,6 +36,10 @@
                 </f:facet>
                 #{curActivity.createdStamp}
             </h:column>
+            <h:column>
+                <f:facet name="header">class</f:facet>
+                #{curActivity.getClass().toString()}
+            </h:column>
         </h:dataTable>
         <!--
         <c:forEach items="#{dashboardController.activities}" var="activity">
@@ -44,8 +48,6 @@
             </div>
         </c:forEach>
         -->
-        <h:commandButton value="back" action="#{dashboardController.back}" />
-        <h:commandButton value="next" action="#{dashboardController.next}" />
     </ui:define>
 </ui:composition>
 </html>

@@ -18,15 +18,9 @@ import java.util.Collection;
 @Named
 @RequestScoped
 public class DashboardController /*implements Serializable*/ {
-    @Inject @Example
-    private Collection<Activity> activities;
-    private long id;
+    private Collection<Activity> activities = new ArrayList<Activity>();
 
-    @PostConstruct
     public void loadActivities() {    }
-
-    public void next() {}
-    public void back() {}
 
     public Collection<Activity> getActivities() {
         return activities;
@@ -34,13 +28,5 @@ public class DashboardController /*implements Serializable*/ {
 
     public void setActivities(Collection<Activity> activities) {
         this.activities = activities;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 }

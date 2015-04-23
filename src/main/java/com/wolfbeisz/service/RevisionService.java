@@ -5,6 +5,7 @@ import com.wolfbeisz.model.database.Revision;
 import com.wolfbeisz.model.database.User;
 import com.wolfbeisz.model.web.AddRevisionRequest;
 import com.wolfbeisz.model.web.ViewRevisionsRequest;
+import com.wolfbeisz.qualifiers.Authenticated;
 import com.wolfbeisz.qualifiers.Example;
 import com.wolfbeisz.repository.DocumentDAO;
 import com.wolfbeisz.repository.RevisionDao;
@@ -25,8 +26,9 @@ public class RevisionService {
 
     @Inject
     private RevisionDao revisionDao;
-    @Inject @Example
-    private User exampleUser;
+    //TODO: test whether everything works
+    @Inject @Authenticated
+    private User user;
     @Inject
     private DocumentDAO documentDao;
 
@@ -40,7 +42,7 @@ public class RevisionService {
 
         Revision r = new Revision();
         r.setCreatedStamp(new Timestamp((new java.util.Date()).getTime()));
-        r.setCreatedBy(exampleUser);
+        r.setCreatedBy(user);
         r.setDocument(document);
         r.setFilecontent(org.apache.commons.io.IOUtils.toByteArray(addRevisionRequest.getFile().getInputStream()));
 

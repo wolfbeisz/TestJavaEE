@@ -79,7 +79,7 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user2")
 	private List<UserFollowsUser> userFollowsUsers2;*/
 
-    @ManyToMany(mappedBy = "followers")
+    @ManyToMany(mappedBy = "followers", fetch = FetchType.EAGER)
     private List<User> idols;
 
     @ManyToMany
