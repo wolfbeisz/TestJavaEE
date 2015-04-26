@@ -8,7 +8,12 @@ import java.util.Date;
  */
 //TODO: add named queries (especially for querying all activities) -> activity stream
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
+@NamedQueries({
+        @NamedQuery(name="Activity.findAll", query = "select a from Activity a"),
+        // the order of the entity_classes in the from-clause must not be changed, otherwise an exception occurs; see: http://stackoverflow.com/questions/26104816/eclipselink-multi-root-jpql-issue
+        @NamedQuery(name = "Activity.findActivityOfIdols", query = "SELECT a FROM User u, Activity a WHERE u.id = :userId and a.createdBy member of u.idols")
+})
 public abstract class Activity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -18,7 +23,7 @@ public abstract class Activity {
     //bi-directional many-to-one association to User
     @ManyToOne
     @JoinColumn(name="CREATED_BY", nullable=false)
-    private User createdBy;
+    private     User createdBy;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="CREATED_STAMP", nullable=false)
