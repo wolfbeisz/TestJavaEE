@@ -33,8 +33,6 @@ public class AuthenticationController implements Serializable {
     }
 
     public boolean isAdministrator() {
-
-        return true;
-        //TODO: use application server's capabilities
+        return FacesContext.getCurrentInstance().getExternalContext().isUserInRole("admin");
     }
 }
