@@ -23,11 +23,14 @@ public class RevisionController {
     private ViewRevisionsRequest viewRequest = new ViewRevisionsRequest();
     @Inject
     private RevisionService revisionService;
+    @Inject
+    private DocumentController documentController;
 
     public void next(){}
     public void back(){}
 
     public void loadRevisions() {
+        viewRequest.setDocumentid(documentController.getDocument().getId());
         revisions = revisionService.findRevisions(viewRequest);
     }
 

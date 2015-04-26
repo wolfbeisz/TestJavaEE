@@ -11,40 +11,66 @@
     <f:viewAction action="#{discussionController.loadDiscussion}" />
 </f:metadata>
 
-<h:head></h:head>
-<h:body>
-    <h1>Discussion</h1>
+<ui:composition template="template.xhtml">
+    <ui:define name="title">Discuss</ui:define>
+    <ui:define name="content">
+        <h1>#{discussionController.discussion.document.title}</h1>
 
-    <h:form>
-        <h:commandButton value="begin new" />
-        <h:commandButton value="previous discussion" />
-        <h:commandButton value="next discussion" />
-    </h:form>
+        <ul class="nav nav-tabs">
+            <li>
+                <h:link outcome="viewDocument.xhtml" value="General">
+                    <f:param name="documentid" value="#{discussionController.discussion.document.id}"/>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="createRevision.xhtml" value="Upload">
+                    <f:param name="documentid" value="#{discussionController.discussion.document.id}"/>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="viewRevisions.xhtml" value="Revisions">
+                    <f:param name="documentid" value="#{discussionController.discussion.document.id}"/>
+                </h:link>
+            </li>
+            <li class="active">
+                <h:link outcome="viewDiscussions.xhtml" value="Discuss">
+                    <f:param name="documentid" value="#{discussionController.discussion.document.id}"/>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="createDiscussion.xhtml" value="Start discussion">
+                    <f:param name="documentid" value="#{discussionController.discussion.document.id}"/>
+                </h:link>
+            </li>
+        </ul>
 
-    <h:dataTable value="#{discussionController.discussion.comments}" var="comment" >
-        <h:column>
-            <f:facet name="header">id</f:facet>
-            #{comment.id}
-        </h:column>
-        <h:column>
-            <f:facet name="header">user name</f:facet>
-            #{comment.createdBy.name}
-        </h:column>
-        <h:column>
-            <f:facet name="header">date and time</f:facet>
-            #{comment.createdStamp}
-        </h:column>
-        <h:column>
-            <f:facet name="header">text</f:facet>
-            #{comment.text}
-        </h:column>
-    </h:dataTable>
+        <h2>#{discussionController.discussion.topic}</h2>
 
-    <!-- TODO: add the ajax action, form missing -->
-    <h:form>
-        <h:outputText value="Your comment:"/>
-        <h:inputTextarea value="#{discussionController.addCommentEvent.commentText}"/>
-        <h:commandButton action="#{discussionController.addComment}" value="post"/>
-    </h:form>
-</h:body>
+        <h:dataTable value="#{discussionController.discussion.comments}" var="comment" >
+            <h:column>
+                <f:facet name="header">id</f:facet>
+                #{comment.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">user name</f:facet>
+                #{comment.createdBy.name}
+            </h:column>
+            <h:column>
+                <f:facet name="header">date and time</f:facet>
+                #{comment.createdStamp}
+            </h:column>
+            <h:column>
+                <f:facet name="header">text</f:facet>
+                #{comment.text}
+            </h:column>
+        </h:dataTable>
+
+        <!-- TODO: add the ajax action, form missing -->
+        <h:form>
+            <h:outputText value="Your comment:"/>
+            <h:inputTextarea value="#{discussionController.addCommentEvent.commentText}"/>
+            <h:commandButton action="#{discussionController.addComment}" value="post"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
 </html>

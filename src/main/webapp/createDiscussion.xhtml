@@ -6,22 +6,54 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:metadata>
-    <f:viewParam name="documentid" value="#{createDiscussionController.createDiscussionEvent.documentId}" required="true"/>
+    <f:viewParam name="documentid" value="#{documentController.viewDocumentRequest.documentid}" required="true"/>
+    <f:viewAction action="#{documentController.loadDocumentBeforeView}" />
 </f:metadata>
 
-<h:head></h:head>
-<h:body>
-    <h1>Start discussion!</h1>
-    <h:form>
-        <h:panelGrid columns="2">
-            <h:outputLabel for="topic" value="Topic: "/>
-            <h:inputText id="topic" value="#{createDiscussionController.createDiscussionEvent.topic}" />
+<ui:composition template="template.xhtml">
+    <ui:define name="title">discuss</ui:define>
+    <ui:define name="content">
+        <h1>#{documentController.document.title}</h1>
 
-            <h:outputLabel for="comment" value="Your opinion:"/>
-            <h:inputTextarea id="comment" value="#{createDiscussionController.createDiscussionEvent.firstPost}"/>
+        <ul class="nav nav-tabs">
+            <li>
+                <h:link outcome="viewDocument.xhtml" value="General">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="createRevision.xhtml" value="Upload">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="viewRevisions.xhtml" value="Revisions">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="viewDiscussions.xhtml" value="Discuss">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+            <li class="active">
+                <h:link outcome="createDiscussion.xhtml" value="Start discussion">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+        </ul>
 
-            <h:commandButton value="create" action="#{createDiscussionController.createDiscussion}"/>
-        </h:panelGrid>
-    </h:form>
-</h:body>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="topic" value="Topic: "/>
+                <h:inputText id="topic" value="#{createDiscussionController.createDiscussionEvent.topic}" />
+
+                <h:outputLabel for="comment" value="Your opinion:"/>
+                <h:inputTextarea id="comment" value="#{createDiscussionController.createDiscussionEvent.firstPost}"/>
+
+                <h:commandButton value="create" action="#{createDiscussionController.createDiscussion}"/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
 </html>

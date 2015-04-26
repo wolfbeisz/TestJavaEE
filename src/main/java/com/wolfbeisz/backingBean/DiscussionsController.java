@@ -21,10 +21,14 @@ public class DiscussionsController {
     private Collection<Discussion> discussions = new ArrayList<Discussion>();
     @Inject
     private DiscussionService discussionService;
+    @Inject
+    private DocumentController documentController;
 
     private ListDiscussionsRequest listDiscussionsRequest = new ListDiscussionsRequest();
 
     public void loadDiscussions() {
+        listDiscussionsRequest.setDocumentid(documentController.getDocument().getId());
+
         discussions = discussionService.findDiscussions(listDiscussionsRequest);
     }
 

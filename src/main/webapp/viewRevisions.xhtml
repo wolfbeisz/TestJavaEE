@@ -6,34 +6,65 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:metadata>
+    <f:viewParam name="documentid" value="#{documentController.viewDocumentRequest.documentid}" required="true"/>
+    <f:viewAction action="#{documentController.loadDocumentBeforeView}" />
     <!-- the documentid of the document -->
-    <f:viewParam name="documentid" value="#{revisionController.viewRequest.documentid}" required="true"/>
+    <!--<f:viewParam name="documentid" value="#{revisionController.viewRequest.documentid}" required="true"/>-->
     <f:viewAction action="#{revisionController.loadRevisions}"/>
 </f:metadata>
 
-<h:head></h:head>
-<h:body>
-    <h1>Revisions</h1>
+<ui:composition template="template.xhtml">
+    <ui:define name="title">revisions</ui:define>
+    <ui:define name="content">
+        <h1>#{documentController.document.title}</h1>
 
-    <h:dataTable value="#{revisionController.revisions}" var="curRevision">
-        <h:column>
-            <f:facet name="header">id</f:facet>
-            #{curRevision.id}
-        </h:column>
-        <h:column>
-            <f:facet name="header">version</f:facet>
-            #{curRevision.version}
-        </h:column>
-        <h:column>
-            <f:facet name="header">mimetype</f:facet>
-            #{curRevision.mimetype}
-        </h:column>
-        <h:column>
-            <h:outputLink value="downloadDocument?revisionId=#{curRevision.id}">
-                download
-            </h:outputLink>
-        </h:column>
-    </h:dataTable>
+        <ul class="nav nav-tabs">
+            <li>
+                <h:link outcome="viewDocument.xhtml" value="General">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="createRevision.xhtml" value="Upload">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+            <li class="active">
+                <h:link outcome="viewRevisions.xhtml" value="Revisions">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="viewDiscussions.xhtml" value="Discuss">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="createDiscussion.xhtml" value="Start discussion">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+        </ul>
 
-</h:body>
+        <h:dataTable value="#{revisionController.revisions}" var="curRevision">
+            <h:column>
+                <f:facet name="header">id</f:facet>
+                #{curRevision.id}
+            </h:column>
+            <h:column>
+                <f:facet name="header">version</f:facet>
+                #{curRevision.version}
+            </h:column>
+            <h:column>
+                <f:facet name="header">mimetype</f:facet>
+                #{curRevision.mimetype}
+            </h:column>
+            <h:column>
+                <h:outputLink value="downloadDocument?revisionId=#{curRevision.id}">
+                    download
+                </h:outputLink>
+            </h:column>
+        </h:dataTable>
+    </ui:define>
+</ui:composition>
 </html>

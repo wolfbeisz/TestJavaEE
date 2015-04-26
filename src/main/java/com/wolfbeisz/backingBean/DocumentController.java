@@ -10,17 +10,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
+import java.io.Serializable;
 
 
 /**
  * Created by Philipp on 16.12.2014.
  */
 @Named
-@RequestScoped
-public class DocumentController {
+@ViewScoped
+public class DocumentController implements Serializable {
     private static final Logger logger = LogManager.getLogger(DocumentController.class);
 
     private AddDocumentRequest documentInformation = new AddDocumentRequest();
@@ -28,7 +30,7 @@ public class DocumentController {
     private UpdateDocumentRequest updateDocumentRequest = new UpdateDocumentRequest();
 
     @Inject
-    private DocumentService documentService;
+    private transient DocumentService documentService;
 
     private Document document;
 

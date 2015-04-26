@@ -18,8 +18,12 @@ public class UploadRevisionController {
     private AddRevisionRequest addRevisionRequest = new AddRevisionRequest();
     @Inject
     private RevisionService revisionService;
+    @Inject
+    private DocumentController documentController;
 
     public String doAddRevision() throws IOException {
+        addRevisionRequest.setDocumentid(documentController.getDocument().getId());
+
         Revision revision = revisionService.addRevision(addRevisionRequest);
         return "viewRevisions.xhtml?documentid="+revision.getDocument().getId()+"&faces-redirect=true";
     }

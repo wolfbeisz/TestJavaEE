@@ -24,8 +24,12 @@ public class CreateDiscussionController {
     private User user;
 
     @Inject
+    private DocumentController documentController;
+
+    @Inject
     private DiscussionService service;
     public String createDiscussion() {
+        createDiscussionEvent.setDocumentId(documentController.getDocument().getId());
         createDiscussionEvent.setTimestamp(new Date());
         createDiscussionEvent.setUserId(user.getId());
 

@@ -6,21 +6,53 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:metadata>
-    <f:viewParam name="documentid" value="#{uploadRevisionController.addRevisionRequest.documentid}"/>
+    <f:viewParam name="documentid" value="#{documentController.viewDocumentRequest.documentid}" required="true"/>
+    <f:viewAction action="#{documentController.loadDocumentBeforeView}" />
+    <!--<f:viewParam name="documentid" value="#{uploadRevisionController.addRevisionRequest.documentid}"/>-->
 </f:metadata>
-<h:head>
 
-</h:head>
-<h:body>
-    <h1>Upload revision</h1>
-    <h:form enctype="multipart/form-data">
+<ui:composition template="template.xhtml">
+    <ui:define name="title">upload</ui:define>
+    <ui:define name="content">
+        <h1>#{documentController.document.title}</h1>
 
-        <h:panelGrid columns="2">
-            <h:outputLabel>file</h:outputLabel>
-            <h:inputFile value="#{uploadRevisionController.addRevisionRequest.file}"></h:inputFile>
-        </h:panelGrid>
+        <ul class="nav nav-tabs">
+            <li>
+                <h:link outcome="viewDocument.xhtml" value="General">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+            <li class="active">
+                <h:link outcome="createRevision.xhtml" value="Upload">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="viewRevisions.xhtml" value="Revisions">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="viewDiscussions.xhtml" value="Discuss">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+            <li>
+                <h:link outcome="createDiscussion.xhtml" value="Start discussion">
+                    <f:param name="documentid" value="#{documentController.viewDocumentRequest.documentid}"/>
+                </h:link>
+            </li>
+        </ul>
 
-        <h:commandButton action="#{uploadRevisionController.doAddRevision}" value="upload revision"></h:commandButton>
-    </h:form>
-</h:body>
+        <h:form enctype="multipart/form-data">
+
+            <h:panelGrid columns="2">
+                <h:outputLabel>file</h:outputLabel>
+                <h:inputFile value="#{uploadRevisionController.addRevisionRequest.file}"></h:inputFile>
+            </h:panelGrid>
+
+            <h:commandButton action="#{uploadRevisionController.doAddRevision}" value="upload revision"></h:commandButton>
+        </h:form>
+    </ui:define>
+</ui:composition>
 </html>
