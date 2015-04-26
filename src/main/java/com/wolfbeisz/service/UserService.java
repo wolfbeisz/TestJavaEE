@@ -50,7 +50,7 @@ public class UserService {
             //TODO: should we do that
             term = "";
         }
-        return userDao.findUsersByName(search.getTerm());
+        return userDao.findUsersByApproximateName("%"+search.getTerm()+"%");
     }
 
     @Transactional

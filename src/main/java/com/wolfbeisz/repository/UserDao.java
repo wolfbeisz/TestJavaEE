@@ -28,6 +28,13 @@ public class UserDao {
     }
 
     @Transactional(Transactional.TxType.SUPPORTS)
+    public List<User> findUsersByApproximateName(String namePattern) {
+        TypedQuery<User> usersByNameQuery = em.createNamedQuery("User.findByApproximateName", User.class);
+        usersByNameQuery.setParameter("namePattern", namePattern);
+        return usersByNameQuery.getResultList();
+    }
+
+    @Transactional(Transactional.TxType.SUPPORTS)
     public List<User> findAllUsers() {
         TypedQuery<User> query = em.createNamedQuery("User.findAll", User.class);
         return query.getResultList();

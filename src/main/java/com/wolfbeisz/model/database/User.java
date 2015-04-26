@@ -15,7 +15,8 @@ import java.util.List;
 @NamedQueries(value={
         @NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
         @NamedQuery(name="User.findByEmail", query="select u from User u where u.email = :email"),
-        @NamedQuery(name="User.findByName", query = "SELECT u FROM User u WHERE u.name = :name")
+        @NamedQuery(name="User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
+        @NamedQuery(name="User.findByApproximateName", query = "SELECT u FROM User u WHERE u.name LIKE :namePattern")
 })
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
