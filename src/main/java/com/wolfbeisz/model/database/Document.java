@@ -14,7 +14,8 @@ import java.util.List;
 @Table(name="DOCUMENTS")
 @NamedQueries({
         @NamedQuery(name="Document.findAll", query="SELECT d FROM Document d"),
-        @NamedQuery(name="Document.findByTitle", query="SELECT d FROM Document d WHERE d.title = :title")
+        @NamedQuery(name="Document.findByTitle", query="SELECT d FROM Document d WHERE d.title = :title"),
+        @NamedQuery(name="Document.findByApproximateTitle", query = "select d from Document d WHERE d.title LIKE :titlePattern")
 })
 
 public class Document extends Activity /*implements Serializable*/ {

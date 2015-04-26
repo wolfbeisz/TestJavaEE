@@ -36,6 +36,14 @@ public class DocumentDAO {
         return documentQuery.getResultList();
     }
 
+    @Transactional(Transactional.TxType.SUPPORTS)
+    public List<Document> findDocumentByApproximateTitle(String title) {
+        TypedQuery<Document> documentQuery = em.createNamedQuery("Document.findByApproximateTitle", Document.class);
+        documentQuery.setParameter("titlePattern", "%"+title+"%");
+        return documentQuery.getResultList();
+    }
+
+
     @Transactional(Transactional.TxType.REQUIRED)
     public void create(Document document) {
         em.persist(document);

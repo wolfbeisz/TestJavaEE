@@ -104,7 +104,7 @@ public class DocumentService {
     }
 
     public List<Document> findDocuments(DocumentSearchEvent documentSearchEvent) {
-        return documentDAO.findDocumentByTitle(documentSearchEvent.getTerm());
+        return documentDAO.findDocumentByApproximateTitle(documentSearchEvent.getTerm());
     }
 
     //TODO: modifying the tags belongs in another view
