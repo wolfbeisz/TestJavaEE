@@ -28,6 +28,9 @@ public class Discussion extends Activity implements Serializable {
 	@JoinColumn(name="DOCUMENTID", nullable=false)
 	private Document document;
 
+    @Column(nullable = false)
+    private String topic;
+
 	public Discussion() {
         comments = new ArrayList<Comment>();
 	}
@@ -62,4 +65,11 @@ public class Discussion extends Activity implements Serializable {
 		this.document = document;
 	}
 
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
 }

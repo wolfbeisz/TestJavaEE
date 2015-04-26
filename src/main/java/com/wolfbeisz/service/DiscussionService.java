@@ -58,8 +58,7 @@ public class DiscussionService {
         Discussion discussion = new Discussion();
         discussion.setCreatedBy(user);
         discussion.setCreatedStamp(createDiscussionEvent.getTimestamp());
-        //TODO: add property 'topic' in model 'Discussion'
-        //discussion.setTopic(createDiscussionEvent.getTopic());
+        discussion.setTopic(createDiscussionEvent.getTopic());
         discussionDao.create(discussion);
 
         Comment comment = new Comment();
