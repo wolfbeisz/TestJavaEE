@@ -16,17 +16,16 @@
     <ui:define name="content">
         <h1>#{userController.user.name}</h1>
 
-        <!--
-        renderForm: #{userController.user.id != authenticationController.current.id}
-        canfollow: #{userController.canFollow}
-        canUnfollow: #{userController.canUnfollow}
+<!--
+        <p>userController.user.id: #{userController.user.id}</p>
+        <p>authenticationController.canFollow(userController.user.id): #{authenticationController.canFollow(userController.user.id)}</p>
+        <p>authenticationController.canUnfollow(userController.user.id): #{authenticationController.canUnfollow(userController.user.id)}</p>
 -->
-
-
         <!--realize this feature with ajax-->
         <h:form>
-            <h:commandButton value="follow" action="#{userController.follow}" /><!--rendered="#{userController.viewRequest.id != authenticationController.current.id and userController.canFollow}"-->
-            <h:commandButton value="unfollow" action="#{userController.unfollow}" /><!--rendered="#{userController.viewRequest.id != authenticationController.current.id and userController.canUnfollow}"-->
+            <h:commandButton value="follow" action="#{authenticationController.follow(userController.user.id)}" rendered="#{authenticationController.canFollow(userController.user.id)}"/>
+
+            <h:commandButton value="unfollow" action="#{authenticationController.unfollow(userController.user.id)}" rendered="#{authenticationController.canUnfollow(userController.user.id)}"/>
         </h:form>
 
         <h2>Contact</h2>

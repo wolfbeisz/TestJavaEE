@@ -11,67 +11,28 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 
 /**
  * Created by Philipp on 17.02.2015.
  */
-@RequestScoped
+@ViewScoped
 @Named
-public class UserController {
-    private static final Logger logger = LogManager.getLogger(UserController.class);
-    private User user;
+public class UserController implements Serializable{
 
-    @Inject @Authenticated
-    private User authenticatedUser;
+    /** the user to display on the web interface */
+    private User user;
 
     private ViewUserRequest viewRequest = new ViewUserRequest();
 
     @Inject
-    private UserService userService;
+    private transient UserService userService;
 
-    private boolean canFollow = true;
-    private boolean canUnfollow = true;
-
-    public String follow() {
-        FollowUserEvent followUserEvent = new FollowUserEvent();
-        followUserEvent.setUserId(authenticatedUser.getId());
-        followUserEvent.setIdolId(viewRequest.getId());
-        userService.followUser(followUserEvent);
-        logger.debug("method 'follow' called; outcome='"+"viewUser.xhtml?userid="+followUserEvent.getIdolId()+"&faces-redirect=true"+"'");
-        return "viewUser.xhtml?userid="+followUserEvent.getIdolId()+"&faces-redirect=true";
-    }
-
-    public String unfollow() {
-        UnfollowUserEvent unfollowEvent = new UnfollowUserEvent();
-        unfollowEvent.setUserId(authenticatedUser.getId());
-        unfollowEvent.setIdolId(viewRequest.getId());
-        userService.unfollowUser(unfollowEvent);
-        return "viewUser.xhtml?userid="+unfollowEvent.getIdolId()+"&faces-redirect=true";
-    }
     public void loadUser() {
         user = userService.findUser(viewRequest);
-        canFollow = canFollow(authenticatedUser, user);
-        canUnfollow = !canFollow(authenticatedUser, user);
-    }
-
-    private boolean canFollow(User user, User potentialIdol) {
-        for (User u : potentialIdol.getFollowers())
-        {
-            if (u.getId() == user.getId()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean getCanFollow() {
-        return canFollow;
-    }
-
-    public boolean getCanUnfollow() {
-        return canUnfollow;
     }
 
     public User getUser() {
