@@ -39,4 +39,16 @@ public class RevisionDao {
         return namedQuery.getSingleResult();*/
 
     }
+
+    @Transactional(Transactional.TxType.SUPPORTS)
+    public Revision findById(long revisionId) {
+        return em.find(Revision.class, revisionId);
+    }
+
+    @Transactional(Transactional.TxType.SUPPORTS)
+    public Revision findLatest(long documentId) {
+        TypedQuery<Revision> query = em.createNamedQuery("Revision.findLatestByDocument", Revision.class);
+        query.setParameter("documentId", documentId);
+        return query.getSingleResult();
+    }
 }

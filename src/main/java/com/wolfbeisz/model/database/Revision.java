@@ -15,7 +15,8 @@ import java.util.List;
 @Table(name="REVISIONS")
 @NamedQueries({
     @NamedQuery(name="Revision.findAll", query="SELECT r FROM Revision r"),
-    @NamedQuery(name="Revision.findByDocumentId", query = "select r from Revision r where r.document.id = :documentId")
+    @NamedQuery(name="Revision.findByDocumentId", query = "select r from Revision r where r.document.id = :documentId"),
+    @NamedQuery(name = "Revision.findLatestByDocument", query="select r from Revision r where r.document.id = :documentId and r.version = (select max(r.version) from Revision r where r.document.id = :documentId) ")
 })
 public class Revision extends Activity implements Serializable {
 	private static final long serialVersionUID = 1L;

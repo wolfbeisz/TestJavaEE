@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:metadata>
+    <f:viewParam name="checkoutId" value="#{checkinController.checkinEvent.checkoutId}" required="true"/>
+    <f:viewAction action="#{checkinController.loadCheckout}" />
+    <!--<f:viewParam name="documentid" value="#{uploadRevisionController.addRevisionRequest.documentid}"/>-->
+</f:metadata>
+
+<ui:composition template="template.xhtml">
+    <ui:define name="title">upload</ui:define>
+    <ui:define name="content">
+        <h1>#{checkinController.checkout.revision.document.title}</h1>
+
+                <ul class="nav nav-tabs">
+                    <li>
+                        <h:link outcome="viewDocument.xhtml" value="General">
+                            <f:param name="documentid" value="#{checkinController.checkout.revision.document.id}"/>
+                        </h:link>
+                    </li>
+                    <li class="active">
+                        <h:link outcome="createRevision.xhtml" value="Upload">
+                            <f:param name="documentid" value="#{checkinController.checkout.revision.document.id}"/>
+                        </h:link>
+                    </li>
+                    <li>
+                        <h:link outcome="viewRevisions.xhtml" value="Revisions">
+                            <f:param name="documentid" value="#{checkinController.checkout.revision.document.id}"/>
+                        </h:link>
+                    </li>
+                    <li>
+                        <h:link outcome="viewDiscussions.xhtml" value="Discuss">
+                            <f:param name="documentid" value="#{checkinController.checkout.revision.document.id}"/>
+                        </h:link>
+                    </li>
+                    <li>
+                        <h:link outcome="createDiscussion.xhtml" value="Start discussion">
+                            <f:param name="documentid" value="#{checkinController.checkout.revision.document.id}"/>
+                        </h:link>
+                    </li>
+                </ul>
+
+        <h:form enctype="multipart/form-data">
+            <h:panelGrid columns="2">
+                <h:outputLabel>file</h:outputLabel>
+                <h:inputFile value="#{checkinController.checkinEvent.file}"></h:inputFile>
+            </h:panelGrid>
+
+            <h:commandButton action="#{checkinController.checkIn}" value="upload revision"></h:commandButton>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

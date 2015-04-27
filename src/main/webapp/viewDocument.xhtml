@@ -44,12 +44,12 @@
             </li>
         </ul>
 
-
-
         <h:form>
             <!-- add buttons for the various actions here -->
-            <h:commandButton value="checkout" action="#{documentController.checkout}"/>
-            <h:commandButton value="checkin" action="#{documentController.checkin}"/>
+            <h:commandButton value="checkout" action="#{documentController.checkout(documentController.latestRevision.id)}" rendered="#{documentController.canCheckout(documentController.latestRevision.id)}"/>
+            <h:button outcome="checkinDocument.xhtml" value="checkin" rendered="#{documentController.canCheckin(documentController.latestRevision.id)}">
+                    <f:param name="checkoutId" value="#{documentController.checkout.id}"></f:param>
+            </h:button>
         </h:form>
 
 

@@ -10,7 +10,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="CHECKOUTS")
-@NamedQuery(name="Checkout.findAll", query="SELECT c FROM Checkout c")
+@NamedQueries({
+        @NamedQuery(name="Checkout.findAll", query="SELECT c FROM Checkout c"),
+        @NamedQuery(name = "Checkout.findByUserAndDocument", query = "SELECT c FROM Checkout c WHERE c.createdBy.id = :userId AND c.revision.document.id = :documentId")
+})
 public class Checkout extends Activity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

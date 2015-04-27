@@ -1,14 +1,10 @@
 package com.wolfbeisz.service;
 
-import com.wolfbeisz.model.database.Document;
-import com.wolfbeisz.model.database.Revision;
-import com.wolfbeisz.model.database.Tag;
-import com.wolfbeisz.model.web.DocumentSearchEvent;
-import com.wolfbeisz.model.web.UpdateDocumentRequest;
-import com.wolfbeisz.model.web.ViewDocumentRequest;
+import com.wolfbeisz.event.CheckinEvent;
+import com.wolfbeisz.model.database.*;
+import com.wolfbeisz.model.web.*;
 import com.wolfbeisz.qualifiers.Authenticated;
 import com.wolfbeisz.qualifiers.Example;
-import com.wolfbeisz.model.web.AddDocumentRequest;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -17,18 +13,19 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import com.wolfbeisz.model.database.User;
-import com.wolfbeisz.repository.DocumentDAO;
-import com.wolfbeisz.repository.RevisionDao;
-import com.wolfbeisz.repository.TagDao;
+import com.wolfbeisz.repository.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by Philipp on 16.12.2014.
  */
 
 public class DocumentService {
+    private static final Logger logger = LogManager.getLogger(DocumentService.class);
     @Inject
     private RevisionDao revisionDao;
 
@@ -41,8 +38,18 @@ public class DocumentService {
 
     @Inject
     private TagService tagService;
+
     @Inject
     private TagDao tagDao;
+
+    @Inject
+    private UserDao userDao;
+
+    @Inject
+    private CheckoutDao checkoutDao;
+
+    @Inject
+    private RevisionService revisionService;
 
     @Transactional
     public Document createDocument(AddDocumentRequest request) throws IOException {
@@ -123,5 +130,44 @@ public class DocumentService {
         createTags(document, updateDocumentRequest.getTags());
         */
         return document;
+    }
+
+    @Transactional
+    public Checkout checkOutDocument(long userId, long revisionId) {
+        Revision revision = revisionDao.findById(revisionId);
+        Document document = revision.getDocument();
+
+        if (existsCheckout(userId, document.getId()))
+        {
+            throw new IllegalStateException("user (id="+userId+") has already checked out the document (id="+document.getId()+")");
+        }
+
+        User user = userDao.findUser(userId);
+
+        Checkout c = new Checkout();
+        c.setCreatedStamp(new Date());
+        c.setCreatedBy(user);
+        c.setRevision(revisionDao.findById(revisionId));
+
+        checkoutDao.create(c);
+        return c;
+    }
+
+    @Transactional(Transactional.TxType.SUPPORTS)
+    public boolean existsCheckout(long userId, long documentId) {
+        return checkoutDao.findByUserAndDocument(userId, documentId).size() > 0;
+    }
+
+    @Transactional
+    public void checkIn(CheckinEvent event) throws IOException {
+        logger.debug("check in: checkoutId="+event.getCheckoutId());
+        Checkout checkout = checkoutDao.findById(event.getCheckoutId());
+
+        AddRevisionRequest addRevision = new AddRevisionRequest();
+        addRevision.setDocumentid(checkout.getRevision().getDocument().getId());
+        addRevision.setFile(event.getFile());
+        revisionService.addRevision(addRevision);
+
+        checkoutDao.delete(checkout);
     }
 }

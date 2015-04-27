@@ -1,9 +1,14 @@
 package com.wolfbeisz.backingBean;
 
+import com.wolfbeisz.model.database.Checkout;
 import com.wolfbeisz.model.database.Document;
+import com.wolfbeisz.model.database.Revision;
 import com.wolfbeisz.model.database.Tag;
 import com.wolfbeisz.model.web.UpdateDocumentRequest;
 import com.wolfbeisz.model.web.ViewDocumentRequest;
+import com.wolfbeisz.repository.CheckoutDao;
+import com.wolfbeisz.repository.RevisionDao;
+import com.wolfbeisz.service.CheckoutService;
 import com.wolfbeisz.service.DocumentService;
 import com.wolfbeisz.model.web.AddDocumentRequest;
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +20,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -31,8 +37,17 @@ public class DocumentController implements Serializable {
 
     @Inject
     private transient DocumentService documentService;
+    @Inject
+    private transient RevisionDao revisionDao;
+    @Inject
+    private transient CheckoutService checkoutService;
 
     private Document document;
+    private Revision latestRevision;
+
+    @Inject
+    private AuthenticationController authenticationController;
+    private Checkout checkout;
 
     public String add() throws IOException{
         Document created = documentService.createDocument(documentInformation);
@@ -41,7 +56,8 @@ public class DocumentController implements Serializable {
 
     public void loadDocumentBeforeView(){
         document = documentService.findDocument(viewDocumentRequest);
-        //logger.trace("document loaded: "+document.getClass());
+        latestRevision = revisionDao.findLatest(viewDocumentRequest.getDocumentid());
+        checkout = checkoutService.findCheckout(authenticationController.getCurrent().getId(), viewDocumentRequest.getDocumentid());
     }
 
     public void loadDocumentBeforeUpdate() {
@@ -58,10 +74,22 @@ public class DocumentController implements Serializable {
         updateDocumentRequest.setTitle(document.getTitle());
     }
 
-    public void checkin() {
-
+    public void checkout(long revisionId){
+        checkout = documentService.checkOutDocument(authenticationController.getCurrent().getId(), revisionId);
     }
-    public void checkout(){}
+
+    public boolean canCheckout(long revisionId) {
+        Revision revision = revisionDao.findById(revisionId);
+        logger.debug("canCheckout: revisionId="+revisionId);
+        logger.debug(authenticationController.getCurrent().getId());
+        logger.debug(revision.getDocument().getId());
+        return !documentService.existsCheckout(authenticationController.getCurrent().getId(), revision.getDocument().getId());
+    }
+
+    public boolean canCheckin(long revisionId) {
+        Revision revision = revisionDao.findById(revisionId);
+        return documentService.existsCheckout(authenticationController.getCurrent().getId(), revision.getDocument().getId());
+    }
 
     public String update() {
         Document updatedDocument = documentService.updateDocument(updateDocumentRequest);
@@ -99,5 +127,21 @@ public class DocumentController implements Serializable {
 
     public void setUpdateDocumentRequest(UpdateDocumentRequest updateDocumentRequest) {
         this.updateDocumentRequest = updateDocumentRequest;
+    }
+
+    public Revision getLatestRevision() {
+        return latestRevision;
+    }
+
+    public void setLatestRevision(Revision latestRevision) {
+        this.latestRevision = latestRevision;
+    }
+
+    public Checkout getCheckout() {
+        return checkout;
+    }
+
+    public void setCheckout(Checkout checkout) {
+        this.checkout = checkout;
     }
 }
